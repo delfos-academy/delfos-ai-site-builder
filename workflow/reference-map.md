@@ -16,19 +16,19 @@ Por isso os docs OPERATIONS são **criados na Fase 2**, não na Fase 5.
 
 | Documento | Criado em | Lido a partir de | Atualizado em |
 |---|---|---|---|
-| `BRIEF.md` | Fase 0 | Todas as fases seguintes (referência de produto) | Quando produto pivota |
-| `REFERENCES.md` | Fase 0 | Fase 1 (design extraction) | Quando adiciona referência |
-| `references/<slug>/` | Fase 0b | Fase 1 (subagent design-extractor) | Quando adiciona referência |
-| `DESIGN_SYSTEM.md` | Fase 1 | Toda Fase 4 que toca UI | Mudança visual significativa (raro) |
-| `ARCHITECTURE.md` | Fase 2 | Toda Fase 4 que toca infra/schema/auth | Quando decisão estrutural muda |
-| `CLAUDE.md` | Fase 2 | **Toda sessão Claude (automático)** | Quando convenção muda |
-| `OPERATIONS/SECURITY.md` | **Fase 2 (versão inicial)** | **Toda Fase 4 que toca superfície relevante** | Incrementalmente na Fase 4, completado na Fase 5 |
-| `OPERATIONS/PERFORMANCE.md` | **Fase 2 (versão inicial)** | **Toda Fase 4 que cria rota/feature** | Audits adicionados na Fase 4, completado na Fase 5 |
-| `PLAN.md` | Fase 3 | Toda Fase 4 (mas só linha do milestone ativo) | Quando milestone fecha (`status: done`) |
-| `MILESTONES/NN-*.md` | Fase 3 | **Só o milestone ativo na Fase 4** | Durante a execução do milestone |
-| `WORKFLOW.md` | Fase 3 | Quando precisa lembrar regras de branch/PR | Raro |
-| `CODE_ORGANIZATION.md` | Fase 2-3 (instanciado) | Toda Fase 4 (mais a regra geral da skill) | Quando convenção muda |
-| `BACKLOG.md` | Fase 3 (vazio) | Quando aparece "boa ideia, mas depois" | Continuamente |
+| `docs/BRIEF.md` | Fase 0 | Todas as fases seguintes (referência de produto) | Quando produto pivota |
+| `docs/REFERENCES.md` | Fase 0 | Fase 1 (design extraction) | Quando adiciona referência |
+| `docs/references/<slug>/` | Fase 0b | Fase 1 (subagent design-extractor) | Quando adiciona referência |
+| `docs/DESIGN_SYSTEM.md` | Fase 1 | Toda Fase 4 que toca UI | Mudança visual significativa (raro) |
+| `docs/ARCHITECTURE.md` | Fase 2 | Toda Fase 4 que toca infra/schema/auth | Quando decisão estrutural muda |
+| `CLAUDE.md` (raiz, exceção) | Fase 2 | **Toda sessão Claude (automático)** | Quando convenção muda |
+| `docs/operations/SECURITY.md` | **Fase 2 (versão inicial)** | **Toda Fase 4 que toca superfície relevante** | Incrementalmente na Fase 4, completado na Fase 5 |
+| `docs/operations/PERFORMANCE.md` | **Fase 2 (versão inicial)** | **Toda Fase 4 que cria rota/feature** | Audits adicionados na Fase 4, completado na Fase 5 |
+| `docs/PLAN.md` | Fase 3 | Toda Fase 4 (mas só linha do milestone ativo) | Quando milestone fecha (`status: done`) |
+| `docs/milestones/NN-*.md` | Fase 3 | **Só o milestone ativo na Fase 4** | Durante a execução do milestone |
+| `docs/WORKFLOW.md` | Fase 3 | Quando precisa lembrar regras de branch/PR | Raro |
+| `docs/CODE_ORGANIZATION.md` | Fase 2-3 (instanciado) | Toda Fase 4 (mais a regra geral da skill) | Quando convenção muda |
+| `docs/BACKLOG.md` | Fase 3 (vazio) | Quando aparece "boa ideia, mas depois" | Continuamente |
 | Páginas legais (`/privacy`, `/terms`) | Fase 5 | — | LGPD update / mudança de produto |
 
 ## Contexto carregado por fase (típico)

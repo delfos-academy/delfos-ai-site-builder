@@ -22,17 +22,18 @@ A skill é **determinística**: cada fase tem entradas, saídas e quality gates 
 
 | # | Fase | Documento da skill | Saídas no projeto-alvo |
 |---|---|---|---|
-| 0 | Discovery | [workflow/00-discovery.md](workflow/00-discovery.md) | `BRIEF.md`, `REFERENCES.md` |
-| 0b | Capturar referência | [workflow/00b-capture-reference.md](workflow/00b-capture-reference.md) | `references/<slug>/{full.png, page.html, styles.css, …}` |
-| 1 | Design System | [workflow/01-design-system.md](workflow/01-design-system.md) | `DESIGN_SYSTEM.md` + `app/globals.css` |
-| 2 | Architecture | [workflow/02-architecture.md](workflow/02-architecture.md) | `ARCHITECTURE.md`, `CLAUDE.md`, `OPERATIONS/SECURITY.md` (v0), `OPERATIONS/PERFORMANCE.md` (v0) |
-| 3 | Master Plan | [workflow/03-master-plan.md](workflow/03-master-plan.md) | `PLAN.md` + `MILESTONES/NN-*.md` |
-| 4 | Execute milestone (loop) | [workflow/04-execute-milestone.md](workflow/04-execute-milestone.md) | código + testes + PR (aplicando regras de OPERATIONS/) |
-| 5 | Launch hardening | [workflow/05-launch-hardening.md](workflow/05-launch-hardening.md) | OPERATIONS/ completados, SEO/LGPD/monitoring |
+| 0 | Discovery | [workflow/00-discovery.md](workflow/00-discovery.md) | `docs/BRIEF.md`, `docs/REFERENCES.md` |
+| 0b | Capturar referência | [workflow/00b-capture-reference.md](workflow/00b-capture-reference.md) | `docs/references/<slug>/{full.png, page.html, styles.css, …}` |
+| 1 | Design System | [workflow/01-design-system.md](workflow/01-design-system.md) | `docs/DESIGN_SYSTEM.md` + `app/globals.css` |
+| 2 | Architecture | [workflow/02-architecture.md](workflow/02-architecture.md) | `docs/ARCHITECTURE.md`, **`CLAUDE.md` (raiz)**, `docs/operations/SECURITY.md` (v0), `docs/operations/PERFORMANCE.md` (v0), `docs/CODE_ORGANIZATION.md` |
+| 3 | Master Plan | [workflow/03-master-plan.md](workflow/03-master-plan.md) | `docs/PLAN.md` + `docs/milestones/NN-*.md` + `docs/WORKFLOW.md` + `docs/BACKLOG.md` |
+| 4 | Execute milestone (loop) | [workflow/04-execute-milestone.md](workflow/04-execute-milestone.md) | código + testes + PR (aplicando regras de `docs/operations/`) |
+| 5 | Launch hardening | [workflow/05-launch-hardening.md](workflow/05-launch-hardening.md) | `docs/operations/` completados, SEO/LGPD/monitoring |
 | — | Quality gates | [workflow/quality-gates.md](workflow/quality-gates.md) | aplicado em todo merge |
 | — | Organização de código | [workflow/code-organization.md](workflow/code-organization.md) | regra transversal em toda Fase 4 |
 | — | Otimização de tokens | [workflow/token-optimization.md](workflow/token-optimization.md) | heurísticas para contexto eficiente |
 | — | Disciplina de commit e testes | [workflow/commit-discipline.md](workflow/commit-discipline.md) | Conventional Commits + testes verdes antes de cada commit |
+| — | Layout do repo | [workflow/repo-layout.md](workflow/repo-layout.md) | whitelist da raiz + estrutura de `docs/` |
 | — | Mapa de referência | [workflow/reference-map.md](workflow/reference-map.md) | quando cada documento é carregado em cada fase |
 | — | Compatibilidade | [COMPATIBILITY.md](COMPATIBILITY.md) | como adaptar para Cursor/Copilot/Codex/Gemini/Aider |
 
@@ -65,31 +66,41 @@ Estes vêm do `CLAUDE.md` da Delfos e ficam embutidos na skill:
 
 ## Estrutura final no projeto-alvo
 
-Após rodar a skill completa, o projeto-alvo terá:
+> **Raiz limpa.** Só `README.md`, `CLAUDE.md`, e configs obrigatórios. Tudo o resto vai pra subpastas. Regra completa em [workflow/repo-layout.md](workflow/repo-layout.md).
 
 ```
 projeto/
-├── CLAUDE.md                  # Convenções, copiado de templates/CLAUDE.md.tpl
-├── BRIEF.md                   # Output da Fase 0
-├── REFERENCES.md              # Output da Fase 0
-├── DESIGN_SYSTEM.md           # Output da Fase 1
-├── ARCHITECTURE.md            # Output da Fase 2
-├── PLAN.md                    # Índice mestre (Fase 3)
-├── WORKFLOW.md                # Regras de branch/PR/merge
-├── CODE_ORGANIZATION.md       # Estrutura de pastas, limites, naming, JSDoc
-├── BACKLOG.md                 # Features pós-V0
-├── MILESTONES/
-│   ├── 00-bootstrap.md
-│   ├── 01-foundation.md
-│   └── …
-├── OPERATIONS/
-│   ├── PERFORMANCE.md         # Fase 2 (versão inicial) → incrementado na Fase 5
-│   └── SECURITY.md            # Fase 2 (versão inicial) → incrementado na Fase 5
-├── references/                # Saídas da Fase 0b (capturas de referência)
-│   └── <slug>/
+├── README.md                       # Convenção GitHub
+├── CLAUDE.md                       # Convenção Claude Code (carrega auto)
+├── package.json, tsconfig.json, next.config.ts, proxy.ts, vercel.json,
+│   eslint.config.mjs, .prettierrc, components.json, postcss.config.mjs,
+│   drizzle.config.ts, vitest.config.ts, playwright.config.ts,
+│   instrumentation.ts, instrumentation-client.ts, .env.example, .gitignore
+├── docs/                           # Todos os docs do produto vivem aqui
+│   ├── BRIEF.md                    # Output da Fase 0
+│   ├── REFERENCES.md               # Output da Fase 0
+│   ├── DESIGN_SYSTEM.md            # Output da Fase 1
+│   ├── ARCHITECTURE.md             # Output da Fase 2
+│   ├── CODE_ORGANIZATION.md        # Output da Fase 2
+│   ├── PLAN.md                     # Output da Fase 3 (índice fino)
+│   ├── WORKFLOW.md                 # Regras de branch/PR/merge
+│   ├── BACKLOG.md                  # Features pós-V0
+│   ├── milestones/
+│   │   ├── 00-bootstrap.md
+│   │   ├── 01-foundation.md
+│   │   └── …
+│   ├── operations/
+│   │   ├── PERFORMANCE.md          # Fase 2 (v0) → incrementado na Fase 5
+│   │   └── SECURITY.md             # Fase 2 (v0) → incrementado na Fase 5
+│   ├── references/                 # Saídas da Fase 0b
+│   │   └── <slug>/
+│   ├── decisions/                  # ADRs grandes
+│   ├── incidents/
+│   └── postmortems/
+├── app/, components/, lib/, tests/, public/
 ├── scripts/
-│   └── capture-reference.mjs  # Copiado de templates/, roda Playwright headless
-└── (código do app)
+│   └── capture-reference.mjs       # Copiado de templates/, Playwright headless
+└── drizzle/                        # Migrations geradas
 ```
 
 ## Conteúdo da skill

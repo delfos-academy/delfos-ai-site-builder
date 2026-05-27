@@ -8,7 +8,7 @@
  *   node scripts/capture-reference.mjs --url https://x.com --slug x --selectors "header,main"
  *   node scripts/capture-reference.mjs --url https://y.com --slug y --timeout 90000
  *
- * Output: references/<slug>/{full.png, full-mobile.png, above-fold.png, page.html, styles.css, fonts.json, meta.json}
+ * Output: docs/references/<slug>/{full.png, full-mobile.png, above-fold.png, page.html, styles.css, fonts.json, meta.json}
  *
  * Requires: playwright (`pnpm add -D playwright` and `pnpm dlx playwright install chromium`).
  */
@@ -24,7 +24,7 @@ const { values } = parseArgs({
     slug: { type: 'string' },
     selectors: { type: 'string' },
     timeout: { type: 'string', default: '60000' },
-    out: { type: 'string', default: 'references' },
+    out: { type: 'string', default: 'docs/references' },
   },
 });
 

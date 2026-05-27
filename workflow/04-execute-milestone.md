@@ -2,7 +2,7 @@
 
 **Objetivo.** Para cada milestone do `PLAN.md`, rodar: branch → testes → implementação → quality gate → PR → aprovação do user → merge.
 
-**Entradas.** `MILESTONES/NN-*.md` ativo, `DESIGN_SYSTEM.md`, `ARCHITECTURE.md`, `CLAUDE.md`.
+**Entradas.** `docs/milestones/NN-*.md` ativo, `DESIGN_SYSTEM.md`, `ARCHITECTURE.md`, `CLAUDE.md`.
 
 **Saídas.** Código + testes + PR mergeado em `main`.
 
@@ -15,7 +15,7 @@ Este loop roda **uma vez por milestone**. Não pule passos.
 - Leia `PLAN.md` e encontre o próximo milestone não-mergeado.
 - Cheque dependências: se o `NN-*.md` lista `Dependências: 02`, confirmar que 02 está mergeado.
 - Carregue **só esse arquivo** no contexto (não os outros milestones).
-- **Leia também** as seções de `OPERATIONS/SECURITY.md` e `OPERATIONS/PERFORMANCE.md` que aplicam a este milestone:
+- **Leia também** as seções de `docs/operations/SECURITY.md` e `docs/operations/PERFORMANCE.md` que aplicam a este milestone:
   - Toca em auth/signup/login/reset? → `OPERATIONS/SECURITY.md §Auth & Session`, `§Rate limiting`, `§Input validation`
   - Cria nova rota/página? → `OPERATIONS/PERFORMANCE.md §Rendering strategy`, `§Assets`
   - Toca em billing/webhook? → `OPERATIONS/SECURITY.md §Webhooks`, `§OWASP A05/A07`
@@ -140,7 +140,7 @@ Se um teste do critério de pronto falhar, **não abra PR**. Volta para implemen
 - Se o milestone tem UI: chamar `verify` skill para confirmar que rodando localmente o fluxo funciona ponta-a-ponta.
 - Se o milestone gerou copy: chamar `marketing-copywriter-1`.
 
-### 8. Atualizar `MILESTONES/NN-*.md`
+### 8. Atualizar `docs/milestones/NN-*.md`
 
 Antes do PR, atualizar o arquivo do milestone:
 - Marcar tasks com `- [x]`
@@ -185,7 +185,7 @@ Se o user aprovar:
 gh pr merge --squash --delete-branch
 ```
 
-Atualizar `MILESTONES/NN-*.md` com `- [x] Aprovado pelo user` e `- [x] Mergeado em main`.
+Atualizar `docs/milestones/NN-*.md` com `- [x] Aprovado pelo user` e `- [x] Mergeado em main`.
 
 ### 11. Próximo milestone
 

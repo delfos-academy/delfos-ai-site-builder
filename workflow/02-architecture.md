@@ -2,13 +2,13 @@
 
 **Objetivo.** Travar o stack e as decisões "estruturais" do projeto antes do plano. Isso evita o Claude re-discutir DB/auth/email no meio de uma feature.
 
-**Entradas.** `BRIEF.md`, `DESIGN_SYSTEM.md`.
+**Entradas.** `docs/BRIEF.md`, `docs/DESIGN_SYSTEM.md`.
 
 **Saídas.**
-- `ARCHITECTURE.md` no projeto-alvo (template em [templates/ARCHITECTURE.md.tpl](../templates/ARCHITECTURE.md.tpl)).
-- `CLAUDE.md` no projeto-alvo (template em [templates/CLAUDE.md.tpl](../templates/CLAUDE.md.tpl)).
-- `OPERATIONS/SECURITY.md` **versão inicial** (regras críticas que aplicam desde a Fase 4 — não esperar até a Fase 5).
-- `OPERATIONS/PERFORMANCE.md` **versão inicial** (orçamentos e estratégia de rendering).
+- `docs/ARCHITECTURE.md` no projeto-alvo (template em [templates/ARCHITECTURE.md.tpl](../templates/ARCHITECTURE.md.tpl)).
+- `CLAUDE.md` **na raiz do projeto-alvo** (template em [templates/CLAUDE.md.tpl](../templates/CLAUDE.md.tpl)) — exceção da whitelist porque Claude Code carrega automático.
+- `docs/operations/SECURITY.md` **versão inicial** (regras críticas que aplicam desde a Fase 4 — não esperar até a Fase 5).
+- `docs/operations/PERFORMANCE.md` **versão inicial** (orçamentos e estratégia de rendering).
 
 > **Por que adiantar OPERATIONS para a Fase 2.** Se eu construo auth na Fase 1 (milestone 0) e as regras de "Argon2id, token SHA-256-hashed, rate limit 5/min" só viram doc na Fase 5, vou implementar mal e refatorar. As regras precisam **existir no projeto antes do código ser escrito**. A Fase 5 não cria do zero — **incrementa** essa base.
 
@@ -52,7 +52,7 @@ Algumas escolhas dependem do produto. Decida com base no `BRIEF.md`:
 
 ### 2. Decisões registradas (ADR-light)
 
-Toda decisão **não-default** vira uma linha em `ARCHITECTURE.md` §"Decisões":
+Toda decisão **não-default** vira uma linha em `docs/ARCHITECTURE.md` §"Decisões":
 
 ```md
 ### D-001 — MDX vs Markdown puro para conteúdo
@@ -66,7 +66,7 @@ ADRs grandes (decisão estrutural com 2+ trade-offs significativos) vão para `d
 
 ### 3. Diagrama de alto nível
 
-Em `ARCHITECTURE.md`, incluir um ASCII art de alto nível mostrando:
+Em `docs/ARCHITECTURE.md`, incluir um ASCII art de alto nível mostrando:
 
 - Browser → Vercel Compute → DB / Vendors
 - Camadas: Routing Middleware (proxy.ts), RSC, Server Actions, API Routes, Cron
@@ -75,7 +75,7 @@ Template pronto em [templates/ARCHITECTURE.md.tpl](../templates/ARCHITECTURE.md.
 
 ### 4. Threat model leve (STRIDE)
 
-Não fazer threat model completo agora (vira `OPERATIONS/SECURITY.md` na Fase 5), mas listar em `ARCHITECTURE.md` §"Superfícies de ataque":
+Não fazer threat model completo agora (vira `docs/operations/SECURITY.md` na Fase 5), mas listar em `docs/ARCHITECTURE.md` §"Superfícies de ataque":
 
 - Auth, billing, content authoring, file upload, org management.
 - Para cada uma, 1 linha de "principal risco STRIDE".
@@ -129,16 +129,16 @@ O que **NÃO** preencher agora:
 
 ## Quality gate
 
-- [ ] `ARCHITECTURE.md` lista stack locked + decisões não-default + diagrama + superfícies de ataque
+- [ ] `docs/ARCHITECTURE.md` lista stack locked + decisões não-default + diagrama + superfícies de ataque
 - [ ] `CLAUDE.md` cobre convenções, "não toque sem perguntar", comandos, glossário
-- [ ] **`OPERATIONS/SECURITY.md` versão inicial criada** (auth padrões, RBAC, rate limit defaults, headers, input validation, LGPD inventory)
-- [ ] **`OPERATIONS/PERFORMANCE.md` versão inicial criada** (CWV targets, bundle budget, rendering strategy, regras desde V0)
+- [ ] **`docs/operations/SECURITY.md` versão inicial criada** (auth padrões, RBAC, rate limit defaults, headers, input validation, LGPD inventory)
+- [ ] **`docs/operations/PERFORMANCE.md` versão inicial criada** (CWV targets, bundle budget, rendering strategy, regras desde V0)
 - [ ] Variáveis-chave do produto decididas (multi-tenancy, RBAC, conteúdo, vídeo, i18n, gating, LGPD)
 - [ ] Nenhuma decisão em aberto que bloqueie a Fase 3
 
 ## Anti-padrões
 
 - ❌ Re-discutir stack porque "será que Astro seria melhor". Stack está locked.
-- ❌ Threat model exaustivo aqui. Esse é o trabalho do `OPERATIONS/SECURITY.md` (Fase 5).
+- ❌ Threat model exaustivo aqui. Esse é o trabalho do `docs/operations/SECURITY.md` (Fase 5).
 - ❌ Diagrama bonito em Mermaid/PlantUML. ASCII basta.
 - ❌ Implementar nada de código. Esta fase é só documento.

@@ -96,7 +96,7 @@ Toda tabela de conteúdo tem coluna `locale` desde V0 (default `pt-BR`).
 
 ## Superfícies de ataque (STRIDE leve)
 
-Análise completa em [OPERATIONS/SECURITY.md](./OPERATIONS/SECURITY.md) (Fase 5). Aqui só o mapa:
+Análise completa em [operations/SECURITY.md](./operations/SECURITY.md) (criada na Fase 2 v0, completada na Fase 5). Aqui só o mapa:
 
 | Superfície | Principal risco STRIDE | Controle inicial |
 |---|---|---|

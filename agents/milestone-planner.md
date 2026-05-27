@@ -1,6 +1,6 @@
 ---
 name: milestone-planner
-description: Subagent for decomposing a product brief + architecture into 6-10 milestones (each independently mergeable, with verifiable done criteria). Use after Fase 2 (Architecture) to generate the PLAN.md skeleton and one MILESTONES/NN-*.md per macro-stage. Returns markdown.
+description: Subagent for decomposing a product brief + architecture into 6-10 milestones (each independently mergeable, with verifiable done criteria). Use after Fase 2 (Architecture) to generate the docs/PLAN.md skeleton and one docs/milestones/NN-*.md per macro-stage. Returns markdown.
 tools: Read, Grep
 ---
 
@@ -67,14 +67,14 @@ A maioria dos produtos SaaS se encaixa neste esqueleto. **Remover ou mesclar mil
 
 Retornar dois blocos em uma única resposta, separados pelos marcadores `---PLAN---` e `---MILESTONES---`.
 
-### 1. Esqueleto do PLAN.md
+### 1. Esqueleto do docs/PLAN.md
 
 Seguindo [templates/PLAN.md.tpl](../templates/PLAN.md.tpl). Preencher:
 - Visão geral (3-5 linhas, extraídas do BRIEF.md)
 - Tabela de milestones com critério de pronto resumido em uma linha
 - Diagrama ASCII de ordem de execução
 
-### 2. Lista de arquivos MILESTONES/NN-*.md
+### 2. Lista de arquivos docs/milestones/NN-*.md
 
 Para cada milestone, conteúdo completo seguindo [templates/MILESTONE.md.tpl](../templates/MILESTONE.md.tpl). Para cada um:
 - Objetivo (1 frase)

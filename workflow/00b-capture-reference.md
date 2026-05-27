@@ -39,8 +39,10 @@ Use o template em [scripts/capture-reference.mjs.tpl](../scripts/capture-referen
 
 ```bash
 pnpm dlx playwright install chromium    # uma vez
-node scripts/capture-reference.mjs --url https://linear.app --slug linear
+node scripts/capture-reference.mjs --url https://linear.app --slug linear --out docs/references
 ```
+
+> Default do script é `--out references` (compatibilidade); passar `--out docs/references` mantém raiz limpa. Ou ajustar o default no script copiado.
 
 O script:
 1. Abre Chromium headless em viewport 1440×900
@@ -55,7 +57,7 @@ O script:
 
 ### 3. Quando o user já forneceu screenshot
 
-- Salvar em `references/<slug>/full.png` (renomeie se necessário).
+- Salvar em `docs/docs/references/<slug>/full.png` (renomeie se necessário).
 - Criar `meta.json` mínimo (sem URL, só source: "user-provided").
 - Pular para passo 4.
 
@@ -64,7 +66,7 @@ O script:
 Para referências importantes, o full-page sozinho é difícil pro extractor analisar com precisão. Recortar manualmente em seções:
 
 ```
-references/<slug>/sections/
+docs/docs/references/<slug>/sections/
 ├── hero.png
 ├── pricing.png
 ├── nav.png
@@ -120,7 +122,7 @@ Se o projeto-alvo ainda não tem Playwright instalado (pré-bootstrap):
 
 - Usar `WebFetch` tool do Claude pra pegar HTML básico (sem JS).
 - Pedir screenshot manual ao user.
-- Salvar em `references/<slug>/` mesmo assim — formato consistente importa.
+- Salvar em `docs/docs/references/<slug>/` mesmo assim — formato consistente importa.
 
 ## Alternativa: MCP de browser
 

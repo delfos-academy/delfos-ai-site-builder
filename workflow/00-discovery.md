@@ -8,8 +8,8 @@
 - (Opcional) Público-alvo, modelo de negócio, prazo, restrições.
 
 **Saídas (no projeto-alvo).**
-- `BRIEF.md` — produto, ICP, modelo de negócio, princípios não-negociáveis.
-- `REFERENCES.md` — links + screenshots + o que tirar de cada um (e o que **não** copiar).
+- `docs/BRIEF.md` — produto, ICP, modelo de negócio, princípios não-negociáveis.
+- `docs/REFERENCES.md` — links + screenshots + o que tirar de cada um (e o que **não** copiar).
 
 ## Passo a passo
 
@@ -24,7 +24,7 @@ Para cada referência que o user mencionar (URL ou nome de site):
 
 > A captura é o que dá ao `design-extractor` (Fase 1) HTML e CSS reais pra extrair tokens — sem ela, ele só consegue chutar do screenshot.
 
-Em `REFERENCES.md`, para cada uma:
+Em `docs/REFERENCES.md`, para cada uma:
 
 ```md
 ## <Nome> — <URL>
@@ -53,18 +53,21 @@ Depois das respostas, **mostre um resumo de 10 linhas** e peça confirmação:
 
 > "Vou registrar isto como brief. Confirma ou ajusta?"
 
-Só escreva `BRIEF.md` depois do "confirmo".
+Só escreva `docs/BRIEF.md` depois do "confirmo".
 
 ### 4. Escrever os arquivos
 
-- Copie [templates/BRIEF.md.tpl](../templates/BRIEF.md.tpl) → `BRIEF.md`, substituindo placeholders.
-- Copie [templates/REFERENCES.md.tpl](../templates/REFERENCES.md.tpl) → `REFERENCES.md`.
-- Crie pasta `references/` no projeto-alvo para screenshots.
+- **Criar pasta `docs/`** se não existir.
+- Copie [templates/BRIEF.md.tpl](../templates/BRIEF.md.tpl) → `docs/BRIEF.md`, substituindo placeholders.
+- Copie [templates/REFERENCES.md.tpl](../templates/REFERENCES.md.tpl) → `docs/REFERENCES.md`.
+- Crie pasta `docs/references/` para screenshots (capturados na Fase 0b).
+
+> **Raiz limpa.** Não criar `BRIEF.md` ou `REFERENCES.md` na raiz — quebra a regra de [workflow/repo-layout.md](repo-layout.md). Whitelist da raiz só permite README, CLAUDE, LICENSE/CONTRIBUTING/CHANGELOG e configs.
 
 ### 5. Commit
 
 ```bash
-git add BRIEF.md REFERENCES.md references/
+git add docs/
 git commit -m "docs: brief inicial e referências"
 ```
 
@@ -72,7 +75,7 @@ git commit -m "docs: brief inicial e referências"
 
 Antes de seguir para Fase 1, confirmar com o user:
 
-- [ ] `BRIEF.md` cobre as 8 perguntas
+- [ ] `docs/BRIEF.md` cobre as 8 perguntas
 - [ ] Pelo menos 1 referência com "o que tirar" e "o que NÃO copiar"
 - [ ] Princípios não-negociáveis listados
 - [ ] Anti-positioning explícito

@@ -47,6 +47,13 @@ pnpm test:e2e     # 100% green
 pnpm build        # sucesso
 ```
 
+## Limpeza da raiz (ver [checklists/repo-cleanliness.md](repo-cleanliness.md))
+
+- [ ] Raiz só contém arquivos da whitelist (README, CLAUDE, configs, pastas conhecidas)
+- [ ] Nenhum `.md` novo criado na raiz (exceto README/CLAUDE/LICENSE/CONTRIBUTING/CHANGELOG)
+- [ ] Nenhum script ou arquivo de dados solto na raiz
+- [ ] Docs do produto vivem em `docs/`, não na raiz
+
 ## Git e disciplina de commit (ver [workflow/commit-discipline.md])
 
 - [ ] Branch correto: `feat/M<NN>-<slug>`

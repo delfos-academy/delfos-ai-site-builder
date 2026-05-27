@@ -2,6 +2,30 @@
 
 > Documento de referência sobre como o código deste repo está estruturado e por quê. Para regras universais da skill, ver também a versão de origem em [delfos-ai-site-builder/workflow/code-organization.md](https://github.com/<org>/delfos-ai-site-builder/blob/main/workflow/code-organization.md).
 
+## Raiz do repo — whitelist estrita
+
+A raiz contém **apenas** arquivos que precisam estar lá por convenção. Documentação do produto vive em `docs/`. Código vive em `app/`, `components/`, `lib/`, `tests/`, `scripts/`, `public/`.
+
+### Permitido na raiz
+- **Documentação mínima:** `README.md`, `CLAUDE.md`, `LICENSE`, `CONTRIBUTING.md`, `CHANGELOG.md`
+- **Configs:** `package.json`, lockfile, `tsconfig*.json`, `.npmrc`, `.nvmrc`, `next.config.ts`, `proxy.ts`, `instrumentation*.ts`, `eslint.config.mjs`, `.prettierrc*`, `postcss.config.*`, `tailwind.config.*`, `components.json`, `vercel.json`, `drizzle.config.ts`, `vitest.config.ts`, `playwright.config.ts`, `.env.example`, `.gitignore`, `.gitattributes`, `.editorconfig`, `Dockerfile`, `.dockerignore`
+- **Pastas:** `app/`, `components/`, `lib/`, `tests/`, `scripts/`, `public/`, `docs/`, `drizzle/`
+
+### Proibido na raiz (mover, sem exceção)
+- ❌ Qualquer outro `.md` → `docs/`
+- ❌ Scripts soltos → `scripts/`
+- ❌ Notas (`NOTES.md`, `TODO.md`, `scratch.md`) → não commitar; ideias vão pra `docs/BACKLOG.md`
+- ❌ Dados (`data.json`, `seed.csv`) → `lib/placeholders/` ou `data/`
+- ❌ Arquivos de análise IA-gerados (`analysis-*.md`, `summary-*.md`) → não criar
+
+### Comando de auditoria
+
+```bash
+ls -1 | grep -vE '^(README\.md|CLAUDE\.md|LICENSE|CONTRIBUTING\.md|CHANGELOG\.md|package\.json|pnpm-lock\.yaml|tsconfig.*\.json|\.npmrc|\.nvmrc|next\.config\.(ts|mjs)|proxy\.ts|instrumentation(-client)?\.ts|eslint\.config\.mjs|\.eslintrc.*|\.prettierrc.*|prettier\.config\..*|postcss\.config\..*|tailwind\.config\..*|components\.json|vercel\.json|drizzle\.config\.ts|vitest\.config\.ts|playwright\.config\.ts|\.env\.example|\.env\.local|\.gitignore|\.gitattributes|\.dockerignore|Dockerfile|\.editorconfig|app|components|lib|tests|scripts|public|docs|drizzle|\.next|\.git|node_modules|\.vercel)$'
+```
+
+Se devolver algo, é violação — mover.
+
 ## Estrutura
 
 ```

@@ -8,7 +8,19 @@ Este arquivo é carregado automaticamente em toda sessão. Mantém o agent alinh
 
 **Founder:** {{FOUNDER_NAME}} ({{FOUNDER_EMAIL}}). Fala {{FOUNDER_LANGUAGE}}.
 
-Plano mestre: [PLAN.md](./PLAN.md). Detalhes por etapa em [MILESTONES/](./MILESTONES/). Ler antes de propor mudanças grandes.
+Plano mestre: [docs/PLAN.md](./docs/PLAN.md). Detalhes por etapa em [docs/milestones/](./docs/milestones/). Ler antes de propor mudanças grandes.
+
+## Layout do repo (regra inegociável)
+
+**Raiz limpa.** Só vivem na raiz: `README.md`, `CLAUDE.md`, e configs (package.json, tsconfig, next.config, proxy.ts, vercel.json, eslint, prettier, drizzle, vitest, playwright, components.json, postcss, instrumentation*, .env.example, .gitignore).
+
+**Toda documentação de produto vive em `docs/`:**
+- `docs/BRIEF.md`, `docs/REFERENCES.md`, `docs/DESIGN_SYSTEM.md`, `docs/ARCHITECTURE.md`
+- `docs/PLAN.md`, `docs/WORKFLOW.md`, `docs/BACKLOG.md`, `docs/CODE_ORGANIZATION.md`
+- `docs/milestones/NN-*.md`, `docs/operations/{PERFORMANCE,SECURITY}.md`
+- `docs/references/<slug>/`, `docs/decisions/`, `docs/incidents/`, `docs/postmortems/`
+
+**Não criar `.md` na raiz** exceto README/CLAUDE/LICENSE/CONTRIBUTING/CHANGELOG. Detalhes em [docs/CODE_ORGANIZATION.md](./docs/CODE_ORGANIZATION.md) §Raiz do repo.
 
 ## Stack (decidido — não re-discutir sem motivo forte)
 
@@ -110,6 +122,7 @@ Ver [ARCHITECTURE.md](./ARCHITECTURE.md). Resumo:
 - `.github/workflows/ci.yml` — afeta CI de todos
 - `lib/auth/session.ts` e correlatos — core de segurança
 - `next.config.ts` (headers/CSP) — afeta segurança
+- **Estrutura da raiz** — não criar `.md` ou script solto na raiz; ver §"Layout do repo" acima
 
 ## Comandos mais comuns
 

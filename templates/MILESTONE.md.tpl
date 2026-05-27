@@ -47,15 +47,15 @@
 ### Validação, segurança e performance
 
 > Antes de implementar este milestone, **leia as seções relevantes**:
-> - `OPERATIONS/SECURITY.md` — regras de auth, RBAC, rate limit, headers, input validation, LGPD que aplicam a este milestone
-> - `OPERATIONS/PERFORMANCE.md` — budget de bundle, rendering strategy, regras desde V0
+> - `docs/operations/SECURITY.md` — regras de auth, RBAC, rate limit, headers, input validation, LGPD que aplicam a este milestone
+> - `docs/operations/PERFORMANCE.md` — budget de bundle, rendering strategy, regras desde V0
 >
 > Estes documentos foram criados na Fase 2 (Architecture) com versão inicial. **Toda regra listada lá deve ser aplicada no código deste milestone**, não deixar pra Fase 5.
 
 - [ ] Zod em toda entrada externa nova
 - [ ] `import 'server-only'` em módulos com DB/secrets
-- [ ] Regras aplicáveis de `OPERATIONS/SECURITY.md` aplicadas (auth pattern, RBAC, rate limit, headers se mudou next.config)
-- [ ] Regras aplicáveis de `OPERATIONS/PERFORMANCE.md` aplicadas (next/image, RSC default, bundle budget respeitado)
+- [ ] Regras aplicáveis de `docs/operations/SECURITY.md` aplicadas (auth pattern, RBAC, rate limit, headers se mudou next.config)
+- [ ] Regras aplicáveis de `docs/operations/PERFORMANCE.md` aplicadas (next/image, RSC default, bundle budget respeitado)
 - [ ] Skill `security-review` se tocou em auth/billing/dados sensíveis
 
 ## Testes obrigatórios

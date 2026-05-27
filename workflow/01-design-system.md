@@ -2,10 +2,10 @@
 
 **Objetivo.** Produzir um design system **autoral** (não AI-default) já materializado em código antes de qualquer feature ser implementada. Tokens, tipografia, geometria, componentes e do/don't.
 
-**Entradas.** `BRIEF.md`, `REFERENCES.md`.
+**Entradas.** `docs/BRIEF.md`, `docs/REFERENCES.md`.
 
 **Saídas.**
-- `DESIGN_SYSTEM.md` no projeto-alvo (template em [templates/DESIGN_SYSTEM.md.tpl](../templates/DESIGN_SYSTEM.md.tpl)).
+- `docs/DESIGN_SYSTEM.md` no projeto-alvo (template em [templates/DESIGN_SYSTEM.md.tpl](../templates/DESIGN_SYSTEM.md.tpl)).
 - `app/globals.css` com os tokens HSL.
 - `app/layout.tsx` com `next/font` carregando as duas fontes escolhidas.
 - Logo mínimo em `components/brand/logo-mark.tsx` (mono via `currentColor`).
@@ -75,7 +75,7 @@ Antes de fechar a fase:
 Checklist em [checklists/design-system-done.md](../checklists/design-system-done.md).
 
 Sintetizando:
-- [ ] `DESIGN_SYSTEM.md` cobre 8 seções (essência, logo, cor, tipografia, geometria, componentes, do/don't, responsive)
+- [ ] `docs/DESIGN_SYSTEM.md` cobre 8 seções (essência, logo, cor, tipografia, geometria, componentes, do/don't, responsive)
 - [ ] Tokens HSL aplicados em `app/globals.css`
 - [ ] 2 fontes via `next/font`, nenhuma é Inter
 - [ ] Squared geometry (no pills exceto avatares)

@@ -44,10 +44,10 @@ Em uma sessão Claude Code dentro do diretório vazio do projeto-alvo:
 O Claude vai:
 
 1. Ler `SKILL.md` e abrir o workflow.
-2. Fase 0 — extrair brief + perguntar gaps + capturar referências em `BRIEF.md` e `REFERENCES.md`.
-3. Fase 1 — gerar `DESIGN_SYSTEM.md` e `app/globals.css` (chamando `ui-ux-pro-max` quando útil).
-4. Fase 2 — `ARCHITECTURE.md` com stack locked.
-5. Fase 3 — `PLAN.md` + 6 a 10 `MILESTONES/NN-*.md`.
+2. Fase 0 — extrair brief + perguntar gaps + capturar referências em `docs/BRIEF.md` e `docs/REFERENCES.md`.
+3. Fase 1 — gerar `docs/DESIGN_SYSTEM.md` e `app/globals.css` (chamando `ui-ux-pro-max` quando útil).
+4. Fase 2 — `docs/ARCHITECTURE.md` com stack locked + `CLAUDE.md` (raiz) + `docs/operations/` v0.
+5. Fase 3 — `docs/PLAN.md` + 6 a 10 `docs/milestones/NN-*.md`.
 6. Fase 4 — cria branch, escreve testes a partir dos requisitos, implementa, roda quality gate, abre PR.
 7. Você revisa, aprova, merge. Próximo milestone.
 8. Fase 5 — hardening final (Lighthouse, CSP, rate limit, SEO, LGPD).

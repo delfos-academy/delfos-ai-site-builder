@@ -49,6 +49,7 @@ pnpm build        # sucesso
 - [ ] Skill `security-review` rodada se tocou em auth/billing/dados sensíveis
 - [ ] Skill `verify` rodada se mudou UI significativa
 - [ ] **Checklist [code-organization.md](../checklists/code-organization.md) passa** (tamanhos, JSDoc, public API, sem `any` solto, sem default export em `lib/`)
+- [ ] **Checklist [repo-cleanliness.md](../checklists/repo-cleanliness.md) passa** (raiz só com whitelist, docs em `docs/`, scripts em `scripts/`)
 
 ### Gate de Launch (Fase 5)
 

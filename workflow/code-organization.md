@@ -7,6 +7,25 @@
 > - Humano consiga **achar e editar** algo pontual sem ler o resto do projeto
 > - Tooling (LSP, grep) **encontre o que está procurando** sem mágica
 
+## Raiz do repo: whitelist estrita
+
+A raiz contém **apenas** arquivos que precisam estar lá por convenção. Tudo o resto vai pra `docs/` ou pasta de código apropriada. Regra completa: [repo-layout.md](repo-layout.md). Checklist: [checklists/repo-cleanliness.md](../checklists/repo-cleanliness.md).
+
+**Permitido na raiz:**
+- `README.md`, `CLAUDE.md`, `LICENSE`, `CONTRIBUTING.md`, `CHANGELOG.md`
+- `package.json`, lockfile, `tsconfig.*.json`, `.npmrc`, `.nvmrc`
+- `next.config.ts`, `proxy.ts`, `instrumentation*.ts`
+- `eslint.config.mjs`, `.prettierrc`, `postcss.config.*`, `tailwind.config.*`, `components.json`
+- `vercel.json`, `drizzle.config.ts`, `vitest.config.ts`, `playwright.config.ts`
+- `.env.example`, `.gitignore`, `.gitattributes`, `.editorconfig`
+- pastas: `app/`, `components/`, `lib/`, `tests/`, `scripts/`, `public/`, `docs/`, `drizzle/`
+
+**Proibido na raiz** (move pra subpasta):
+- Docs do produto (`BRIEF.md`, `PLAN.md`, etc) → `docs/`
+- Scripts soltos → `scripts/`
+- Dados (`data.json`, `seed.csv`) → `lib/placeholders/` ou `data/`
+- Notas (`NOTES.md`, `TODO.md`) → não commitar, use `docs/BACKLOG.md`
+
 ## Limites duros
 
 | Tipo | Soft (avisar) | Hard (refatorar) |

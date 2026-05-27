@@ -2,16 +2,18 @@
 
 **Objetivo.** Levar o produto de "funcional em deploy preview" para "pronto para tráfego real". Performance, segurança, SEO, observability, LGPD.
 
-**Entradas.** Todos os milestones anteriores mergeados em `main`. Deploy preview verde.
+**Entradas.** Todos os milestones anteriores mergeados em `main`. Deploy preview verde. `OPERATIONS/SECURITY.md` e `OPERATIONS/PERFORMANCE.md` já existem com versão inicial desde a Fase 2.
 
-**Saídas.**
-- `OPERATIONS/PERFORMANCE.md` no projeto-alvo (template em [templates/OPERATIONS/PERFORMANCE.md.tpl](../templates/OPERATIONS/PERFORMANCE.md.tpl)).
-- `OPERATIONS/SECURITY.md` no projeto-alvo (template em [templates/OPERATIONS/SECURITY.md.tpl](../templates/OPERATIONS/SECURITY.md.tpl)).
+**Saídas (incremento sobre o que já existe).**
+- `OPERATIONS/PERFORMANCE.md` **atualizado** com audits reais (Lighthouse por página, indexes ativos, PRs de otimização linkados).
+- `OPERATIONS/SECURITY.md` **atualizado** com threat model completo (não só de alto nível), OWASP marcado como `done`, vendor DPA matrix, incident response runbook.
 - Páginas legais (`/privacy`, `/terms`).
-- CSP/HSTS/headers configurados em `next.config.ts`.
-- Rate limiting nos endpoints públicos.
+- CSP/HSTS/headers configurados em `next.config.ts` (snippets já estavam no doc desde Fase 2 — agora vira código).
+- Rate limiting nos endpoints públicos (regras já estavam no doc — agora vira código).
 - Sentry + Vercel Analytics + Speed Insights ativos.
 - Lighthouse ≥ 95 em 4 páginas-chave.
+
+> **Os documentos OPERATIONS/ não são criados aqui** — eles já existiam desde a Fase 2 como "regras a serem aplicadas durante o desenvolvimento". Esta fase finaliza: aplica audits reais, completa threat model, cria páginas legais, monta observability. Se ao chegar aqui você descobriu que `OPERATIONS/SECURITY.md` lista regras que nunca foram aplicadas no código, isso é uma falha do gate de cada milestone — não deveria ter mergeado.
 
 ## Esta fase é um milestone também
 

@@ -15,6 +15,13 @@ Este loop roda **uma vez por milestone**. Não pule passos.
 - Leia `PLAN.md` e encontre o próximo milestone não-mergeado.
 - Cheque dependências: se o `NN-*.md` lista `Dependências: 02`, confirmar que 02 está mergeado.
 - Carregue **só esse arquivo** no contexto (não os outros milestones).
+- **Leia também** as seções de `OPERATIONS/SECURITY.md` e `OPERATIONS/PERFORMANCE.md` que aplicam a este milestone:
+  - Toca em auth/signup/login/reset? → `OPERATIONS/SECURITY.md §Auth & Session`, `§Rate limiting`, `§Input validation`
+  - Cria nova rota/página? → `OPERATIONS/PERFORMANCE.md §Rendering strategy`, `§Assets`
+  - Toca em billing/webhook? → `OPERATIONS/SECURITY.md §Webhooks`, `§OWASP A05/A07`
+  - Cria nova entidade no schema? → `OPERATIONS/SECURITY.md §Data protection (LGPD)` para checar se vira PII
+  - Adiciona dependência? → `OPERATIONS/PERFORMANCE.md §JavaScript` (bundle budget)
+- Não carregue OPERATIONS/ inteiro se só uma seção interessa — leia direcionado.
 
 ### 2. Criar branch
 

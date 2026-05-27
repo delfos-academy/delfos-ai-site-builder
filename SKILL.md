@@ -25,14 +25,15 @@ A skill é **determinística**: cada fase tem entradas, saídas e quality gates 
 | 0 | Discovery | [workflow/00-discovery.md](workflow/00-discovery.md) | `BRIEF.md`, `REFERENCES.md` |
 | 0b | Capturar referência | [workflow/00b-capture-reference.md](workflow/00b-capture-reference.md) | `references/<slug>/{full.png, page.html, styles.css, …}` |
 | 1 | Design System | [workflow/01-design-system.md](workflow/01-design-system.md) | `DESIGN_SYSTEM.md` + `app/globals.css` |
-| 2 | Architecture | [workflow/02-architecture.md](workflow/02-architecture.md) | `ARCHITECTURE.md` |
+| 2 | Architecture | [workflow/02-architecture.md](workflow/02-architecture.md) | `ARCHITECTURE.md`, `CLAUDE.md`, `OPERATIONS/SECURITY.md` (v0), `OPERATIONS/PERFORMANCE.md` (v0) |
 | 3 | Master Plan | [workflow/03-master-plan.md](workflow/03-master-plan.md) | `PLAN.md` + `MILESTONES/NN-*.md` |
-| 4 | Execute milestone (loop) | [workflow/04-execute-milestone.md](workflow/04-execute-milestone.md) | código + testes + PR |
-| 5 | Launch hardening | [workflow/05-launch-hardening.md](workflow/05-launch-hardening.md) | `OPERATIONS/PERFORMANCE.md`, `OPERATIONS/SECURITY.md`, SEO/LGPD |
+| 4 | Execute milestone (loop) | [workflow/04-execute-milestone.md](workflow/04-execute-milestone.md) | código + testes + PR (aplicando regras de OPERATIONS/) |
+| 5 | Launch hardening | [workflow/05-launch-hardening.md](workflow/05-launch-hardening.md) | OPERATIONS/ completados, SEO/LGPD/monitoring |
 | — | Quality gates | [workflow/quality-gates.md](workflow/quality-gates.md) | aplicado em todo merge |
 | — | Organização de código | [workflow/code-organization.md](workflow/code-organization.md) | regra transversal em toda Fase 4 |
 | — | Otimização de tokens | [workflow/token-optimization.md](workflow/token-optimization.md) | heurísticas para contexto eficiente |
 | — | Disciplina de commit e testes | [workflow/commit-discipline.md](workflow/commit-discipline.md) | Conventional Commits + testes verdes antes de cada commit |
+| — | Mapa de referência | [workflow/reference-map.md](workflow/reference-map.md) | quando cada documento é carregado em cada fase |
 | — | Compatibilidade | [COMPATIBILITY.md](COMPATIBILITY.md) | como adaptar para Cursor/Copilot/Codex/Gemini/Aider |
 
 ## Princípios não-negociáveis

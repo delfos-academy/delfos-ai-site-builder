@@ -24,14 +24,27 @@ cp <skill_path>/hooks/settings.json.example .claude/settings.json
 
 - **typecheck** — após editar `.ts`/`.tsx`, roda `pnpm exec tsc --noEmit`. Mostra primeiros 50 erros (cap para não inundar contexto).
 - **eslint --fix** — corrige problemas de lint automaticamente no arquivo editado.
+- **size limit** — avisa se arquivo passou do hard limit (250 linhas pra `.tsx`, 350 pra `.ts`) — força refactor antes de virar problema.
+- **vitest do arquivo** — se editou um `*.test.ts(x)`, roda só esse teste (basic reporter, cap 30 linhas).
 
 > Estes rodam **em todo Edit/Write**. Se ficar lento em projeto grande, considerar:
 > - Trocar `tsc --noEmit` por `tsc --incremental` (precisa `--build`)
-> - Limitar com matcher mais específico
+> - Limitar matcher para subset (`app/**`)
+
+### PreToolUse · Bash
+
+Bloqueios de segurança:
+
+- **`git push --force` / `-f`** em qualquer ramo → bloqueado (use `--force-with-lease` em branch própria se realmente necessário)
+- **`rm -rf /`, `rm -rf .`, `rm -rf *`** → bloqueado
+- **`--no-verify` / `--no-gpg-sign`** em git → bloqueado (se um hook falha, conserte o root cause)
+
+Estes não devem disparar em uso normal — são guarda-corpos contra prompt injection ou erro de transcrição.
 
 ### Stop
 
-- **git status** — ao terminar turno, mostra mudanças não-commitadas. Lembra o user de revisar antes de fechar a sessão.
+- **`git status`** — mostra mudanças não-commitadas (cap 20 linhas)
+- **alerta de main com dirty tree** — avisa se você tem mudanças não-commitadas enquanto está na branch `main`
 
 ## Custos
 

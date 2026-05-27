@@ -31,6 +31,8 @@ A skill é **determinística**: cada fase tem entradas, saídas e quality gates 
 | 5 | Launch hardening | [workflow/05-launch-hardening.md](workflow/05-launch-hardening.md) | `OPERATIONS/PERFORMANCE.md`, `OPERATIONS/SECURITY.md`, SEO/LGPD |
 | — | Quality gates | [workflow/quality-gates.md](workflow/quality-gates.md) | aplicado em todo merge |
 | — | Organização de código | [workflow/code-organization.md](workflow/code-organization.md) | regra transversal em toda Fase 4 |
+| — | Otimização de tokens | [workflow/token-optimization.md](workflow/token-optimization.md) | heurísticas para contexto eficiente |
+| — | Compatibilidade | [COMPATIBILITY.md](COMPATIBILITY.md) | como adaptar para Cursor/Copilot/Codex/Gemini/Aider |
 
 ## Princípios não-negociáveis
 

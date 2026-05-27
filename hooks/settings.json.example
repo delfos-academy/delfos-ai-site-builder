@@ -1,5 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "_comment": "Hooks recomendados para projetos buildados com a skill delfos-ai-site-builder. Copie para .claude/settings.json (ou .claude/settings.local.json) no projeto-alvo. Saídas são truncadas (head/tail) para economizar contexto.",
   "hooks": {
     "PostToolUse": [
       {
@@ -8,12 +9,44 @@
           {
             "type": "command",
             "command": "if [[ \"$CLAUDE_TOOL_INPUT_FILE_PATH\" =~ \\.(ts|tsx)$ ]]; then pnpm exec tsc --noEmit -p tsconfig.json 2>&1 | head -50; fi",
-            "description": "Roda typecheck depois de editar TS/TSX (head -50 para não inundar contexto)"
+            "description": "Typecheck após editar TS/TSX (cap em 50 linhas)"
           },
           {
             "type": "command",
             "command": "if [[ \"$CLAUDE_TOOL_INPUT_FILE_PATH\" =~ \\.(ts|tsx|js|jsx)$ ]]; then pnpm exec eslint --fix \"$CLAUDE_TOOL_INPUT_FILE_PATH\" 2>&1 | tail -20; fi",
-            "description": "Lint --fix no arquivo editado, mostra só warnings/errors restantes"
+            "description": "Lint --fix no arquivo editado (cap em 20 linhas restantes)"
+          },
+          {
+            "type": "command",
+            "command": "if [[ \"$CLAUDE_TOOL_INPUT_FILE_PATH\" =~ \\.(ts|tsx)$ ]]; then lines=$(wc -l < \"$CLAUDE_TOOL_INPUT_FILE_PATH\" 2>/dev/null || echo 0); if [ \"$lines\" -gt 250 ] && [[ \"$CLAUDE_TOOL_INPUT_FILE_PATH\" =~ \\.tsx$ ]]; then echo \"⚠ size hard limit: $CLAUDE_TOOL_INPUT_FILE_PATH com $lines linhas (.tsx limit=250)\"; elif [ \"$lines\" -gt 350 ]; then echo \"⚠ size hard limit: $CLAUDE_TOOL_INPUT_FILE_PATH com $lines linhas (.ts limit=350)\"; fi; fi",
+            "description": "Avisa se arquivo passou do hard limit (250 tsx / 350 ts)"
+          },
+          {
+            "type": "command",
+            "command": "if [[ \"$CLAUDE_TOOL_INPUT_FILE_PATH\" =~ \\.test\\.(ts|tsx)$ ]]; then pnpm exec vitest run --reporter=basic \"$CLAUDE_TOOL_INPUT_FILE_PATH\" 2>&1 | tail -30; fi",
+            "description": "Roda Vitest no arquivo de teste editado (cap em 30 linhas)"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if echo \"$CLAUDE_TOOL_INPUT_COMMAND\" | grep -qE 'git push.*--force|git push.*-f\\s' ; then echo 'BLOCKED: git push --force em main não permitido. Use --force-with-lease em branch própria.' >&2; exit 2; fi",
+            "description": "Bloqueia `git push --force` (proteção contra perda)"
+          },
+          {
+            "type": "command",
+            "command": "if echo \"$CLAUDE_TOOL_INPUT_COMMAND\" | grep -qE 'rm -rf\\s+/|rm -rf\\s+\\.\\s*$|rm -rf\\s+\\*'; then echo 'BLOCKED: rm -rf perigoso' >&2; exit 2; fi",
+            "description": "Bloqueia rm -rf perigosos"
+          },
+          {
+            "type": "command",
+            "command": "if echo \"$CLAUDE_TOOL_INPUT_COMMAND\" | grep -qE '--no-verify|--no-gpg-sign'; then echo 'BLOCKED: pulando hooks/signing não permitido. Se um hook falha, conserte o root cause.' >&2; exit 2; fi",
+            "description": "Bloqueia --no-verify e --no-gpg-sign em git commands"
           }
         ]
       }
@@ -25,6 +58,11 @@
             "type": "command",
             "command": "git status --porcelain | head -20",
             "description": "Mostra mudanças não-commitadas ao terminar turno"
+          },
+          {
+            "type": "command",
+            "command": "branch=$(git symbolic-ref --short HEAD 2>/dev/null); if [ \"$branch\" = 'main' ] && [ -n \"$(git status --porcelain)\" ]; then echo '⚠ Atenção: você tem mudanças não-commitadas em main. Crie uma branch antes de continuar.'; fi",
+            "description": "Avisa se há mudanças não-commitadas em main"
           }
         ]
       }

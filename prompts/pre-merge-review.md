@@ -28,6 +28,16 @@ Use **antes de pedir aprovação do user no PR**. Auto-revisão estruturada do q
 - [ ] Sem TODO sem issue
 - [ ] Copy em {{PT_PRIMARY_LOCALE}} na UI, código em inglês
 
+### 2b. Organização (rodar checklist `code-organization.md`)
+
+- [ ] Nenhum arquivo passa do hard limit (componente 250 / action 400 / lib 350 / route 200 linhas)
+- [ ] Imports ordenados via `simple-import-sort`
+- [ ] Sem default export em `lib/`
+- [ ] Sem função com > 5 parâmetros posicionais
+- [ ] JSDoc nas superfícies públicas novas (exports do `index.ts`, server actions, componentes compartilhados)
+- [ ] Public API de feature nova exposta via `lib/<feature>/index.ts`; detalhes internos não importados de fora
+- [ ] Naming: `kebab-case` arquivos, `PascalCase` componentes, `use-x.ts` hooks
+
 ### 3. Segurança (se aplicável)
 
 Se diff toca em auth/billing/dados sensíveis, rodar checklist completo de [checklists/security-review.md](../checklists/security-review.md).

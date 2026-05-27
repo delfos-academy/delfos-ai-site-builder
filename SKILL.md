@@ -23,12 +23,14 @@ A skill é **determinística**: cada fase tem entradas, saídas e quality gates 
 | # | Fase | Documento da skill | Saídas no projeto-alvo |
 |---|---|---|---|
 | 0 | Discovery | [workflow/00-discovery.md](workflow/00-discovery.md) | `BRIEF.md`, `REFERENCES.md` |
+| 0b | Capturar referência | [workflow/00b-capture-reference.md](workflow/00b-capture-reference.md) | `references/<slug>/{full.png, page.html, styles.css, …}` |
 | 1 | Design System | [workflow/01-design-system.md](workflow/01-design-system.md) | `DESIGN_SYSTEM.md` + `app/globals.css` |
 | 2 | Architecture | [workflow/02-architecture.md](workflow/02-architecture.md) | `ARCHITECTURE.md` |
 | 3 | Master Plan | [workflow/03-master-plan.md](workflow/03-master-plan.md) | `PLAN.md` + `MILESTONES/NN-*.md` |
 | 4 | Execute milestone (loop) | [workflow/04-execute-milestone.md](workflow/04-execute-milestone.md) | código + testes + PR |
 | 5 | Launch hardening | [workflow/05-launch-hardening.md](workflow/05-launch-hardening.md) | `OPERATIONS/PERFORMANCE.md`, `OPERATIONS/SECURITY.md`, SEO/LGPD |
 | — | Quality gates | [workflow/quality-gates.md](workflow/quality-gates.md) | aplicado em todo merge |
+| — | Organização de código | [workflow/code-organization.md](workflow/code-organization.md) | regra transversal em toda Fase 4 |
 
 ## Princípios não-negociáveis
 
@@ -70,6 +72,7 @@ projeto/
 ├── ARCHITECTURE.md            # Output da Fase 2
 ├── PLAN.md                    # Índice mestre (Fase 3)
 ├── WORKFLOW.md                # Regras de branch/PR/merge
+├── CODE_ORGANIZATION.md       # Estrutura de pastas, limites, naming, JSDoc
 ├── BACKLOG.md                 # Features pós-V0
 ├── MILESTONES/
 │   ├── 00-bootstrap.md
@@ -78,6 +81,10 @@ projeto/
 ├── OPERATIONS/
 │   ├── PERFORMANCE.md         # Fase 5
 │   └── SECURITY.md            # Fase 5
+├── references/                # Saídas da Fase 0b (capturas de referência)
+│   └── <slug>/
+├── scripts/
+│   └── capture-reference.mjs  # Copiado de templates/, roda Playwright headless
 └── (código do app)
 ```
 

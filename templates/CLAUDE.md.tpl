@@ -45,6 +45,15 @@ Ver [ARCHITECTURE.md](./ARCHITECTURE.md). Resumo:
 - Não adicionar feature flags / shims de compat se podemos só editar
 - Nomes em inglês no código; copy em {{PT_PRIMARY_LOCALE}} na UI
 
+### Organização (ver [CODE_ORGANIZATION.md](./CODE_ORGANIZATION.md))
+- Estrutura **por feature**, não por tipo
+- Tamanho hard: componente `.tsx` ≤ 250 linhas, server action ≤ 400, lib `.ts` ≤ 350
+- Cada `lib/<feature>/` tem `index.ts` que re-exporta a "API pública"; consumidores importam do index
+- JSDoc obrigatório em: exports do `index.ts`, server actions, componentes compartilhados, tipos exportados não-triviais
+- Arquivos `kebab-case`; componentes export `PascalCase`; hooks `use-x.ts`
+- Sem `any` solto, sem default export em `lib/`, sem função com > 5 parâmetros posicionais
+- Imports ordenados (side-effect → node → external → `@/` → relativo → type-only) — `eslint-plugin-import` + `simple-import-sort` ativos
+
 ### Banco
 - Schema fonte única: `lib/db/schema.ts`
 - Toda tabela de conteúdo tem coluna `locale` (V0 só usa `{{PT_PRIMARY_LOCALE}}`, mas o schema já está pronto)

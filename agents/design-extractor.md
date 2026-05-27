@@ -10,15 +10,18 @@ Your job: take a visual reference and return a structured design token set in YA
 
 ## Inputs
 
-- One or more references: URL, screenshot path, or written description.
+- One or more references **already captured** in `references/<slug>/` (see workflow/00b-capture-reference.md). Each folder contains: `full.png`, `full-mobile.png`, `page.html`, `styles.css`, `fonts.json`, `meta.json`.
 - The brief (one-liner + ICP) for context.
 
 ## Process
 
-1. **Fetch / look** at each reference:
-   - URL → `WebFetch` to get HTML/CSS hints
-   - Screenshot → analyze visually (image input)
-   - Description → reason from words
+1. **Read the captured artifacts** for each reference (DO NOT WebFetch fresh — work from what was captured):
+   - `Read references/<slug>/meta.json` — URL, title, timestamp
+   - `Read references/<slug>/styles.css` — computed styles of key elements (body, h1-h3, a, button, etc) — this is where colors/fonts/radii actually come from
+   - `Read references/<slug>/fonts.json` — every font-family the page used
+   - `Read references/<slug>/page.html` — structure, classes, semantic landmarks
+   - View `references/<slug>/full.png` and `full-mobile.png` as image inputs to understand visual hierarchy
+   - If folder is missing, **stop and ask the parent agent to run the capture script first**.
 
 2. **Identify the essence** in 3 adjectives. Be specific:
    - ❌ "modern, clean, professional"

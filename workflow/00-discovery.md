@@ -15,11 +15,14 @@
 
 ### 1. Coletar a referência
 
-Para cada referência que o user mencionar:
+Para cada referência que o user mencionar (URL ou nome de site):
 
-- Abrir com `WebFetch` se for URL.
-- Pedir ao user para colar screenshot se for um app não-público.
+- **Capturar via script Playwright headless** — ver fluxo completo em [00b-capture-reference.md](00b-capture-reference.md). Gera `references/<slug>/{full.png, full-mobile.png, page.html, styles.css, fonts.json, meta.json}`.
+- Se o user disse só nome ("estilo Vercel"), confirmar URL antes de capturar.
+- Se a referência é app fechado/atrás de login: pedir screenshot manual ao user, salvar em `references/<slug>/full.png`.
 - **Não** baixar/imitar pixel a pixel — referência é vibe, não cópia.
+
+> A captura é o que dá ao `design-extractor` (Fase 1) HTML e CSS reais pra extrair tokens — sem ela, ele só consegue chutar do screenshot.
 
 Em `REFERENCES.md`, para cada uma:
 

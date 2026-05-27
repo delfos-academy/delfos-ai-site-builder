@@ -65,6 +65,14 @@ git commit -m "feat(M<NN>): <descrição>"
 - Sem abstrações prematuras (3 linhas duplicadas > abstração ruim)
 - Copy em PT-BR, código em inglês
 
+**Regras de organização** (transversal — ler [code-organization.md](code-organization.md)):
+- Componente `.tsx` ≤ 250 linhas hard; server action ≤ 400; lib module ≤ 350
+- Estrutura por feature (`app/(area)/feature/` e `lib/feature/`), não por tipo
+- Cada `lib/<feature>/` tem `index.ts` (public API); detalhes internos não exportados pelo index
+- JSDoc em toda export do `index.ts`, server action, componente compartilhado
+- Naming: arquivos `kebab-case`, componentes `PascalCase`, hooks `use-x.ts`
+- Sem `any` solto, sem default export em `lib/`, sem função com > 5 parâmetros posicionais
+
 ### 5. UI/UX checks contínuos
 
 Quando o milestone tocar em UI:

@@ -22,7 +22,7 @@ Esta skill força um caminho oposto: **discovery → design system → arquitetu
 ```bash
 # (a partir do diretório onde queremos usar)
 mkdir -p .claude/skills
-git clone https://github.com/<org>/delfos-ai-site-builder .claude/skills/delfos-ai-site-builder
+git clone https://github.com/delfos-academy/delfos-ai-site-builder .claude/skills/delfos-ai-site-builder
 ```
 
 A skill aparece automaticamente para o Claude na próxima sessão.
@@ -30,7 +30,7 @@ A skill aparece automaticamente para o Claude na próxima sessão.
 ### Como skill global do usuário
 
 ```powershell
-git clone https://github.com/<org>/delfos-ai-site-builder $HOME\.claude\skills\delfos-ai-site-builder
+git clone https://github.com/delfos-academy/delfos-ai-site-builder $HOME\.claude\skills\delfos-ai-site-builder
 ```
 
 ## Uso típico
@@ -58,13 +58,15 @@ O Claude vai:
 delfos-ai-site-builder/
 ├── SKILL.md                          # Entry point (frontmatter Anthropic skill)
 ├── README.md                         # Este arquivo
+├── COMPATIBILITY.md                  # Guia para Cursor/Copilot/Codex/Gemini/Aider
 ├── workflow/                         # As 6 fases + quality gates
 ├── templates/                        # Arquivos .tpl copiados pro projeto-alvo
 │   └── OPERATIONS/                   # PERFORMANCE.md.tpl, SECURITY.md.tpl
 ├── checklists/                       # Definition of done por etapa
-├── prompts/                          # Sub-prompts reutilizáveis
+├── prompts/                          # Sub-prompts reutilizáveis (fallback sem subagents)
+├── agents/                           # Subagents customizados (preferir sobre prompts)
 ├── hooks/                            # settings.json.example com PostToolUse
-└── agents/                           # Subagents customizados (md)
+└── scripts/                          # Scripts utilitários (.tpl copiados pro projeto-alvo)
 ```
 
 ## Convenções dos templates

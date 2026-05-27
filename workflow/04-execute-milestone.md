@@ -35,7 +35,7 @@ Naming: `feat/M00-bootstrap`, `feat/M03-progress-engine`, etc.
 
 ### 3. Escrever testes a partir dos requisitos (TDD-leve)
 
-**Antes de implementar**, expanda os requisitos testáveis do milestone em testes concretos. Use [prompts/tests-from-requirements.md](../prompts/tests-from-requirements.md).
+**Antes de implementar**, expanda os requisitos testáveis do milestone em testes concretos. Use o subagent `requirement-tester` ([agents/requirement-tester.md](../agents/requirement-tester.md)). Em ambientes sem suporte a subagents, usar o sub-prompt: [prompts/tests-from-requirements.md](../prompts/tests-from-requirements.md).
 
 Para cada item de "Critério de pronto":
 

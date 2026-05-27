@@ -268,7 +268,7 @@ import type { Session } from '@/lib/auth';
 
 - Sempre `import type` quando importa só tipos.
 - Sempre `@/...` para internos, **nunca** `../../../lib/db`.
-- Nunca importar de barrel/index quando você só usa uma coisa que existe em arquivo direto? — **sim, importe do index**. A consistência ganha do micro-perf.
+- Importar de barrel/index mesmo quando só usa uma coisa? — **sim, importe do index**. A consistência ganha do micro-perf.
 - Exceção: `lucide-react` (tree-shaking quebra com barrel) — importar individual: `import { Check } from 'lucide-react'` é OK pq o lucide próprio é tree-shake-friendly.
 
 ## Comentários

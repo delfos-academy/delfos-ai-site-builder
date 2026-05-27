@@ -79,7 +79,7 @@
 
 ## Quality gate antes do PR
 
-Ver [quality-gates.md da skill](https://github.com/<org>/delfos-ai-site-builder/blob/main/workflow/quality-gates.md) ou [checklists/milestone-done.md](https://github.com/<org>/delfos-ai-site-builder/blob/main/checklists/milestone-done.md).
+Ver [quality-gates.md da skill](https://github.com/delfos-academy/delfos-ai-site-builder/blob/main/workflow/quality-gates.md) ou [checklists/milestone-done.md](https://github.com/delfos-academy/delfos-ai-site-builder/blob/main/checklists/milestone-done.md).
 
 ```bash
 pnpm typecheck

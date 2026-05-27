@@ -15,7 +15,7 @@
 
 ### 1. Extrair design das referências
 
-Use o subagent `design-extractor` (em [agents/design-extractor.md](../agents/design-extractor.md)) ou o sub-prompt [prompts/extract-design-from-reference.md](../prompts/extract-design-from-reference.md).
+Use o subagent `design-extractor` (em [agents/design-extractor.md](../agents/design-extractor.md)). Em ambientes sem suporte a subagents (Cursor, uso manual), usar o sub-prompt equivalente: [prompts/extract-design-from-reference.md](../prompts/extract-design-from-reference.md).
 
 Saída esperada do extractor (interno, não vai pro disco):
 

@@ -32,6 +32,23 @@ Agent({
 })
 ```
 
+## Subagents vs sub-prompts (`prompts/`)
+
+Existem versões paralelas de cada subagent na pasta `prompts/`:
+
+| Subagent | Sub-prompt equivalente |
+|----------|----------------------|
+| `design-extractor` | `prompts/extract-design-from-reference.md` |
+| `milestone-planner` | `prompts/decompose-milestone.md` |
+| `requirement-tester` | `prompts/tests-from-requirements.md` |
+
+**Quando usar qual:**
+
+- **Claude Code** → sempre usar os **subagents** (este diretório). Isolam contexto, têm acesso a tools, escrevem arquivos diretamente.
+- **Outros ambientes** (Cursor, Copilot, uso manual, embedding em outro agente) → usar os **sub-prompts** em `prompts/`. São templates markdown que você embute no contexto do agente executor.
+
+Os sub-prompts não foram removidos porque são o fallback portável para ambientes sem suporte a subagents (ver [COMPATIBILITY.md](../COMPATIBILITY.md)).
+
 ## Princípios de uso
 
 - **Contexto isolado** — o subagent não vê a conversa principal. Sempre passar contexto completo no prompt.

@@ -23,7 +23,7 @@ Trate como `MILESTONES/<NN>-launch-hardening.md`. Branch própria, PR, quality g
 
 ### 1. Performance
 
-Ler [templates/OPERATIONS/PERFORMANCE.md.tpl](../templates/OPERATIONS/PERFORMANCE.md.tpl) — instancie como `OPERATIONS/PERFORMANCE.md`.
+Incrementar `OPERATIONS/PERFORMANCE.md` (criado na Fase 2) com os audits reais desta fase. O template original está em [templates/OPERATIONS/PERFORMANCE.md.tpl](../templates/OPERATIONS/PERFORMANCE.md.tpl) para referência.
 
 **Mínimo viável:**
 
@@ -37,7 +37,7 @@ Ler [templates/OPERATIONS/PERFORMANCE.md.tpl](../templates/OPERATIONS/PERFORMANC
 
 ### 2. Segurança
 
-Ler [templates/OPERATIONS/SECURITY.md.tpl](../templates/OPERATIONS/SECURITY.md.tpl) — instancie como `OPERATIONS/SECURITY.md`.
+Incrementar `OPERATIONS/SECURITY.md` (criado na Fase 2) com o threat model completo, OWASP marcado como `done` e runbook de incident response. O template original está em [templates/OPERATIONS/SECURITY.md.tpl](../templates/OPERATIONS/SECURITY.md.tpl) para referência.
 
 **Mínimo viável:**
 

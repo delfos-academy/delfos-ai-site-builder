@@ -21,7 +21,7 @@ Separação:
 
 ### 1. Decompor o produto em milestones
 
-Use o subagent `milestone-planner` ([agents/milestone-planner.md](../agents/milestone-planner.md)) ou o sub-prompt [prompts/decompose-milestone.md](../prompts/decompose-milestone.md).
+Use o subagent `milestone-planner` ([agents/milestone-planner.md](../agents/milestone-planner.md)). Em ambientes sem suporte a subagents (Cursor, uso manual), usar o sub-prompt equivalente: [prompts/decompose-milestone.md](../prompts/decompose-milestone.md).
 
 **Regras de decomposição:**
 

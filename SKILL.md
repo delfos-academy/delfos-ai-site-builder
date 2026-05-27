@@ -83,8 +83,8 @@ projeto/
 │   ├── 01-foundation.md
 │   └── …
 ├── OPERATIONS/
-│   ├── PERFORMANCE.md         # Fase 5
-│   └── SECURITY.md            # Fase 5
+│   ├── PERFORMANCE.md         # Fase 2 (versão inicial) → incrementado na Fase 5
+│   └── SECURITY.md            # Fase 2 (versão inicial) → incrementado na Fase 5
 ├── references/                # Saídas da Fase 0b (capturas de referência)
 │   └── <slug>/
 ├── scripts/
@@ -95,9 +95,11 @@ projeto/
 ## Conteúdo da skill
 
 - [README.md](README.md) — visão geral e como instalar
+- [COMPATIBILITY.md](COMPATIBILITY.md) — como usar com Cursor, Copilot, Codex, Gemini, Aider
 - [workflow/](workflow/) — as 6 fases + quality gates
 - [templates/](templates/) — arquivos `.tpl` que viram docs do projeto-alvo
 - [checklists/](checklists/) — definition of done por etapa
-- [prompts/](prompts/) — sub-prompts reutilizáveis (extract design, decompose milestone, tests from requirements, pre-merge review)
+- [agents/](agents/) — subagents customizados (design-extractor, milestone-planner, requirement-tester) — **preferir sobre prompts quando em Claude Code**
+- [prompts/](prompts/) — sub-prompts reutilizáveis; fallback quando subagents não estão disponíveis (Cursor, Copilot, uso manual)
 - [hooks/](hooks/) — configuração de hooks PostToolUse para o projeto-alvo
-- [agents/](agents/) — subagents customizados (design-extractor, milestone-planner, requirement-tester)
+- [scripts/](scripts/) — scripts utilitários (capture-reference.mjs.tpl)

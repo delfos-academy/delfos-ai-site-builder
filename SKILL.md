@@ -96,6 +96,7 @@ projeto/
 
 - [README.md](README.md) — visão geral e como instalar
 - [COMPATIBILITY.md](COMPATIBILITY.md) — como usar com Cursor, Copilot, Codex, Gemini, Aider
+- [adapters/](adapters/) — arquivos de config prontos por ferramenta (cursor, copilot, codex, gemini, aider, continue)
 - [workflow/](workflow/) — as 6 fases + quality gates
 - [templates/](templates/) — arquivos `.tpl` que viram docs do projeto-alvo
 - [checklists/](checklists/) — definition of done por etapa

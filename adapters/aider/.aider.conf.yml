@@ -1,0 +1,25 @@
+# Configuração Aider para projetos Delfos
+# Copiar para a raiz do projeto-alvo e ajustar se necessário
+
+# Arquivos lidos automaticamente em toda sessão
+read:
+  - CLAUDE.md
+  - CONVENTIONS.md
+  - .skill/workflow/code-organization.md
+
+# Comando de testes — roda após cada mudança de código
+test-cmd: "pnpm test:unit --run"
+
+# Aider não faz auto-commit — mantém controle no humano/Claude
+auto-commits: false
+
+# Mensagens de commit seguindo Conventional Commits
+# (o modelo vai seguir o padrão via CONVENTIONS.md)
+commit-prompt: |
+  Escreva uma mensagem de commit seguindo Conventional Commits:
+  formato: <type>(<scope>): <descrição em imperativo minúsculo>
+  types: feat, fix, refactor, test, docs, chore, perf, style, build, ci
+  Exemplo: feat(M01-courses): adiciona CRUD de cursos no admin
+
+# Modelo recomendado (ajustar conforme disponibilidade)
+# model: claude-sonnet-4-5

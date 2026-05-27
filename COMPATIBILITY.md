@@ -17,156 +17,98 @@
 > **Claude-específico:** SKILL.md frontmatter, `agents/*.md` (subagents), `hooks/settings.json`, `Skill` tool, `Agent` tool.
 > **Portável:** todo o `workflow/`, `templates/`, `checklists/`, `prompts/`, `scripts/`. Markdown puro com instruções acionáveis.
 
-## Como adaptar para cada ferramenta
+## Como usar os adapters
+
+A pasta [`adapters/`](adapters/) contém arquivos de configuração prontos para cada ferramenta.
+**Não é mais necessário criar esses arquivos na mão** — copie o adapter correspondente.
+
+### Instalação padrão (todas as ferramentas não-Claude)
+
+```bash
+# 1. Na raiz do projeto-alvo, instalar a skill em .skill/
+git clone https://github.com/delfos-academy/delfos-ai-site-builder .skill
+echo ".skill/" >> .gitignore   # opcional: não versionar
+
+# 2. Copiar o adapter da sua ferramenta
+```
 
 ### Claude Code (recomendado)
 
-Instalar como descrito em [README.md](README.md). Tudo funciona out-of-the-box.
-
 ```bash
+# Projeto (compartilhado com a equipe)
 mkdir -p .claude/skills
-git clone <repo> .claude/skills/delfos-ai-site-builder
+git clone https://github.com/delfos-academy/delfos-ai-site-builder .claude/skills/delfos-ai-site-builder
+
+# Ou global (só sua máquina)
+git clone https://github.com/delfos-academy/delfos-ai-site-builder $HOME\.claude\skills\delfos-ai-site-builder
 ```
+
+Tudo funciona out-of-the-box — Claude Code lê `SKILL.md` na raiz automaticamente.
 
 ### Cursor
 
-1. Copiar os templates e checklists para o projeto-alvo (mesmo path).
-2. Criar `.cursor/rules/delfos-builder.mdc` apontando para os documentos do workflow:
-
-```mdc
----
-description: Site builder com padrão Delfos
-globs: ["**/*.ts", "**/*.tsx", "**/*.md"]
-alwaysApply: false
----
-
-Siga o workflow em workflow/04-execute-milestone.md ao implementar.
-Respeite os limites de tamanho de workflow/code-organization.md.
-Aplique a checklist de checklists/code-organization.md em todo diff.
-
-@workflow/04-execute-milestone.md
-@workflow/code-organization.md
-@workflow/token-optimization.md
-@checklists/milestone-done.md
-@CLAUDE.md
+```bash
+mkdir -p .cursor/rules
+cp .skill/adapters/cursor/delfos-builder.mdc .cursor/rules/delfos-builder.mdc
 ```
 
-**O que NÃO funciona em Cursor:**
-- Subagents (Cursor tem Agent mode mas não definições reutilizáveis em `.md`)
-- Hooks PostToolUse (Cursor não tem)
-- Tool `Skill` (Cursor não tem skill system)
+Arquivo: [`adapters/cursor/delfos-builder.mdc`](adapters/cursor/delfos-builder.mdc)
 
-**Workarounds:**
-- Subagents viram instruções inline ("quando precisar extrair design, siga prompts/extract-design-from-reference.md")
-- Hooks viram regras manuais ("após editar .ts/.tsx, rodar `pnpm typecheck`")
+**O que NÃO funciona em Cursor:** subagents, hooks PostToolUse, tool `Skill`.
+**Workaround subagents:** usar os sub-prompts em `.skill/prompts/` (referenciados no adapter).
 
 ### GitHub Copilot
 
-1. Copiar templates e checklists.
-2. Criar `.github/copilot-instructions.md` na raiz com sumário dos princípios + links:
-
-```md
-# Project conventions
-
-Stack: Next.js 16 + Vercel + Neon + Drizzle + Tailwind v4 + shadcn/ui.
-
-Convenções principais:
-- TypeScript strict, `noUncheckedIndexedAccess: true`
-- Zod em toda entrada externa
-- RSC default; `'use client'` só quando necessário
-- Limites: componente .tsx ≤ 250 linhas, action ≤ 400, lib ≤ 350
-- JSDoc obrigatório em superfícies públicas (exports de index.ts, server actions)
-- Imports ordenados: side-effect → node → external → @/ → relativo → type
-
-Ver workflow/code-organization.md e CLAUDE.md.
-
-Antes de fazer commit:
-- `pnpm typecheck` zero erros
-- `pnpm lint` zero warnings
-- `pnpm test:unit` 100% green
+```bash
+mkdir -p .github
+cp .skill/adapters/copilot/copilot-instructions.md .github/copilot-instructions.md
 ```
 
-**O que NÃO funciona:**
-- Sub-prompts reutilizáveis (Copilot não chama outros prompts)
-- Hooks
-- Workflow multi-fase orquestrado (Copilot é completions, não agente)
+Arquivo: [`adapters/copilot/copilot-instructions.md`](adapters/copilot/copilot-instructions.md)
 
-**Aproveitável:** convenções de código, templates, naming.
+**O que NÃO funciona:** sub-prompts encadeados, hooks, workflow multi-fase orquestrado.
+**Aproveitável:** convenções de código, templates, naming, quality gate.
 
 ### Codex CLI (OpenAI)
 
-1. Copiar templates e checklists.
-2. Criar `AGENTS.md` na raiz (Codex lê isso automaticamente):
-
-```md
-# {{PROJECT_NAME}}
-
-Siga o workflow:
-- Discovery → BRIEF.md, REFERENCES.md
-- Design System → DESIGN_SYSTEM.md + app/globals.css
-- Architecture → ARCHITECTURE.md
-- Master Plan → PLAN.md + MILESTONES/
-- Execute → branch + tests + impl + PR
-- Hardening → OPERATIONS/
-
-Regras:
-- workflow/code-organization.md (tamanhos, public API, JSDoc)
-- workflow/token-optimization.md
-- checklists/milestone-done.md antes de PR
-- checklists/code-organization.md em todo diff
-
-Comandos:
-- pnpm typecheck / lint / test:unit / test:e2e / build / db:push
+```bash
+cp .skill/adapters/codex/AGENTS.md AGENTS.md
 ```
 
-**O que NÃO funciona:**
-- Subagents nominais
-- Hooks Claude-style
-- Tool `Skill`
+Arquivo: [`adapters/codex/AGENTS.md`](adapters/codex/AGENTS.md)
 
-**Aproveitável:** workflow, templates, regras.
+### Gemini (Firebase Studio / Project IDX)
 
-### Gemini Code Assist
+```bash
+mkdir -p .idx
+cp .skill/adapters/gemini/airules.md .idx/airules.md
+```
 
-Sem mecanismo equivalente a SKILL.md. Opções:
+Arquivo: [`adapters/gemini/airules.md`](adapters/gemini/airules.md)
 
-1. **Project IDX (Firebase)**: `.idx/airules.md` na raiz com sumário dos princípios.
-2. **VS Code extension**: sem rules persistentes — colar sumário das regras no chat por sessão.
-3. **API direto**: passar `workflow/04-execute-milestone.md` + `CLAUDE.md` como system instructions.
+**VS Code extension:** sem rules persistentes — cole o conteúdo do adapter no primeiro prompt da sessão, ou instrua diretamente: "Siga `.skill/workflow/04-execute-milestone.md`".
 
 ### Aider
 
-1. Copiar templates e checklists.
-2. Criar `CONVENTIONS.md` na raiz com sumário das regras.
-3. Em `.aider.conf.yml`:
-
-```yaml
-read:
-  - CLAUDE.md
-  - CONVENTIONS.md
-  - workflow/code-organization.md
-auto-commits: false   # mantém controle de commits no humano
-test-cmd: "pnpm test:unit && pnpm typecheck && pnpm lint"
+```bash
+cp .skill/adapters/aider/CONVENTIONS.md CONVENTIONS.md
+cp .skill/adapters/aider/.aider.conf.yml .aider.conf.yml   # ajustar se necessário
 ```
 
-Aider tem `--test` que roda comandos pós-edit — equivalente parcial aos hooks.
+Arquivos: [`adapters/aider/`](adapters/aider/)
+
+Aider tem `--test` que roda comandos pós-edit — equivalente parcial aos hooks do Claude Code.
 
 ### Continue.dev
 
-1. Copiar templates e checklists.
-2. Em `.continue/rules/site-builder.md`:
-
-```md
----
-name: Delfos site builder
-description: Workflow para construir sites no padrão Delfos
----
-
-Siga workflow/04-execute-milestone.md.
-Respeite workflow/code-organization.md.
+```bash
+mkdir -p .continue/rules
+cp .skill/adapters/continue/site-builder.md .continue/rules/delfos-builder.md
 ```
 
-Continue suporta múltiplos modelos (pode usar Claude + GPT-4 + Gemini no mesmo workspace), e cada um lê as rules — então a skill efetivamente funciona em **qualquer modelo** dentro do Continue, mesmo os que não são Claude.
+Arquivo: [`adapters/continue/site-builder.md`](adapters/continue/site-builder.md)
+
+Continue suporta múltiplos modelos (Claude + GPT-4 + Gemini no mesmo workspace) — o adapter funciona com qualquer um deles.
 
 ## O conteúdo que sempre funciona
 

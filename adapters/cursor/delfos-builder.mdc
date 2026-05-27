@@ -1,0 +1,44 @@
+---
+description: Workflow determinístico Delfos para construir sites de produção (Next.js + Vercel + Neon + Tailwind + shadcn)
+globs: ["**/*.ts", "**/*.tsx", "**/*.md", "**/*.css"]
+alwaysApply: false
+---
+
+Você está construindo um produto usando o playbook Delfos.
+Stack locked: **Next.js 16 + Vercel + Neon + Drizzle + Tailwind v4 + shadcn/ui**.
+
+## Fase ativa
+
+Identifique em qual fase o projeto está (leia `PLAN.md` se existir) e siga o documento:
+
+- Fase 0 — Discovery: @.skill/workflow/00-discovery.md
+- Fase 0b — Capturar referência: @.skill/workflow/00b-capture-reference.md
+- Fase 1 — Design System: @.skill/workflow/01-design-system.md
+- Fase 2 — Arquitetura: @.skill/workflow/02-architecture.md
+- Fase 3 — Master Plan: @.skill/workflow/03-master-plan.md
+- Fase 4 — Execute Milestone: @.skill/workflow/04-execute-milestone.md
+- Fase 5 — Launch Hardening: @.skill/workflow/05-launch-hardening.md
+
+## Regras sempre ativas (ler antes de qualquer implementação)
+
+@.skill/workflow/code-organization.md
+@.skill/workflow/commit-discipline.md
+@.skill/workflow/quality-gates.md
+
+## Templates
+
+Para criar documentos do projeto, copiar de `.skill/templates/*.tpl` substituindo os `{{PLACEHOLDERS}}`.
+
+## Subagents (não disponíveis em Cursor)
+
+Usar os sub-prompts equivalentes em `.skill/prompts/`:
+- `prompts/extract-design-from-reference.md` (equivalente ao subagent design-extractor)
+- `prompts/decompose-milestone.md` (equivalente ao subagent milestone-planner)
+- `prompts/tests-from-requirements.md` (equivalente ao subagent requirement-tester)
+
+## Limites de tamanho (hard — refatorar antes de merge)
+
+- Componente `.tsx`: ≤ 250 linhas
+- `actions.ts`: ≤ 400 linhas
+- Lib `.ts`: ≤ 350 linhas
+- `route.ts`: ≤ 200 linhas

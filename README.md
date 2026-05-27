@@ -59,6 +59,13 @@ delfos-ai-site-builder/
 ├── SKILL.md                          # Entry point (frontmatter Anthropic skill)
 ├── README.md                         # Este arquivo
 ├── COMPATIBILITY.md                  # Guia para Cursor/Copilot/Codex/Gemini/Aider
+├── adapters/                         # Arquivos de config prontos por ferramenta
+│   ├── cursor/                       # .cursor/rules/
+│   ├── copilot/                      # .github/copilot-instructions.md
+│   ├── codex/                        # AGENTS.md
+│   ├── gemini/                       # .idx/airules.md
+│   ├── aider/                        # CONVENTIONS.md + .aider.conf.yml
+│   └── continue/                     # .continue/rules/
 ├── workflow/                         # As 6 fases + quality gates
 ├── templates/                        # Arquivos .tpl copiados pro projeto-alvo
 │   └── OPERATIONS/                   # PERFORMANCE.md.tpl, SECURITY.md.tpl

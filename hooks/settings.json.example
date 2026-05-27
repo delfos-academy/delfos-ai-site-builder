@@ -47,6 +47,16 @@
             "type": "command",
             "command": "if echo \"$CLAUDE_TOOL_INPUT_COMMAND\" | grep -qE '--no-verify|--no-gpg-sign'; then echo 'BLOCKED: pulando hooks/signing não permitido. Se um hook falha, conserte o root cause.' >&2; exit 2; fi",
             "description": "Bloqueia --no-verify e --no-gpg-sign em git commands"
+          },
+          {
+            "type": "command",
+            "command": "if echo \"$CLAUDE_TOOL_INPUT_COMMAND\" | grep -qE '^git commit\\b'; then msg=$(echo \"$CLAUDE_TOOL_INPUT_COMMAND\" | grep -oE -- '-m\\s+\"[^\"]+\"' | head -1 | sed 's/^-m\\s\\+\"//; s/\"$//'); if [ -n \"$msg\" ] && ! echo \"$msg\" | grep -qE '^(feat|fix|refactor|test|docs|chore|perf|style|build|ci|revert)(\\([^)]+\\))?!?:\\s+.+'; then echo \"BLOCKED: commit message não é Conventional Commit. Formato: <type>(<scope>): <descrição>. Types: feat|fix|refactor|test|docs|chore|perf|style|build|ci|revert. Mensagem recebida: $msg\" >&2; exit 2; fi; fi",
+            "description": "Bloqueia git commit com mensagem que não é Conventional Commit"
+          },
+          {
+            "type": "command",
+            "command": "if echo \"$CLAUDE_TOOL_INPUT_COMMAND\" | grep -qE '^git commit\\b'; then if ! pnpm test:unit --silent 2>&1 | tail -5; then echo \"BLOCKED: pnpm test:unit falhou. Conserte os testes antes de commitar (não pule, não delete, não .skip).\" >&2; exit 2; fi; fi",
+            "description": "Bloqueia git commit se pnpm test:unit não está 100% verde"
           }
         ]
       }

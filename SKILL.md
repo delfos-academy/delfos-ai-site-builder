@@ -32,6 +32,7 @@ A skill é **determinística**: cada fase tem entradas, saídas e quality gates 
 | — | Quality gates | [workflow/quality-gates.md](workflow/quality-gates.md) | aplicado em todo merge |
 | — | Organização de código | [workflow/code-organization.md](workflow/code-organization.md) | regra transversal em toda Fase 4 |
 | — | Otimização de tokens | [workflow/token-optimization.md](workflow/token-optimization.md) | heurísticas para contexto eficiente |
+| — | Disciplina de commit e testes | [workflow/commit-discipline.md](workflow/commit-discipline.md) | Conventional Commits + testes verdes antes de cada commit |
 | — | Compatibilidade | [COMPATIBILITY.md](COMPATIBILITY.md) | como adaptar para Cursor/Copilot/Codex/Gemini/Aider |
 
 ## Princípios não-negociáveis

@@ -70,16 +70,28 @@ Ver [ARCHITECTURE.md](./ARCHITECTURE.md). Resumo:
 - Templates em `lib/email/templates/*.tsx` com React Email
 - Copy em {{PT_PRIMARY_LOCALE}}, tom profissional adulto
 
-### Testes
-- Unit tests próximos ao código (`foo.ts` + `foo.test.ts`)
-- E2E em `tests/e2e/`
-- Toda mudança de auth precisa de teste novo ou atualizado
-- Mocks de vendors em `tests/mocks/`
+### Testes (obrigatórios por tipo)
+- **Unit tests próximos ao código** (`foo.ts` + `foo.test.ts`)
+- **E2E em `tests/e2e/`** (1 spec por milestone)
+- **Toda nova feature/regra precisa de teste**, não só auth. Mapeamento:
+  - Função pura → unit (caso feliz + edge + erro)
+  - Server action → unit happy path + failure (sem permissão, validação falha)
+  - Schema Zod → accepts valid, rejects invalid (cobrir cada constraint)
+  - Componente compartilhado → unit RTL (render + interação principal)
+  - Rota nova → E2E do fluxo do critério de pronto
+  - Permissão/RBAC → unit `requireRole` + E2E redirect + E2E wrong role
+  - Rate limit → unit do contador + E2E "Nth request → 429"
+  - Webhook → integration: signature válida processa, inválida 400, duplicata noop
+- Mocks de vendors em `tests/mocks/` (Resend, Stripe, AI Gateway — nunca chamar API real em CI)
 
-### Commits
-- Conventional Commits: `feat:`, `fix:`, `chore:`, `refactor:`, `test:`, `docs:`
-- Branch naming: `feat/M<NN>-<slug>`, `fix/<short>`
-- Sem push direto em `main`. Sempre PR.
+### Commits e testes (disciplina não-negociável)
+- **Conventional Commits obrigatório** — `feat(M<NN>-scope): descrição em imperativo`. Ver lista de types em [CODE_ORGANIZATION.md] e detalhe em workflow/commit-discipline.md da skill.
+- **Toda feature/regra de negócio nova → teste novo.** Sem exceção.
+- **Commit após cada feature implementada**, não acumular. Uma feature = 20-200 linhas, cabe em 1-2 commits coesos.
+- **Antes de cada commit:** `pnpm test:unit` 100% verde (incluindo testes antigos), `pnpm typecheck` zero erros, `pnpm lint` zero warnings. Se algum falha: conserta o root cause, não pula.
+- **Teste antigo quebrou?** Não comente, não delete. Verifique se sua mudança está errada ou se a regra mudou intencionalmente — em ambos os casos, conserte e explique no corpo do commit.
+- **Tests-first quando possível:** crítério de pronto vira teste antes da implementação.
+- Branch naming: `feat/M<NN>-<slug>`, `fix/<short>`. Sem push direto em `main` — sempre PR.
 
 ## Skills úteis nesse projeto
 

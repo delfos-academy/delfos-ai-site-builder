@@ -47,11 +47,18 @@ pnpm test:e2e     # 100% green
 pnpm build        # sucesso
 ```
 
-## Git
+## Git e disciplina de commit (ver [workflow/commit-discipline.md])
 
 - [ ] Branch correto: `feat/M<NN>-<slug>`
-- [ ] Commits Conventional (`feat(M<NN>): …`, `fix:`, `test:`, etc)
-- [ ] Histórico granular (não commit gigante "everything")
+- [ ] **Toda feature commitada teve `pnpm test:unit` verde antes do commit**
+- [ ] **Toda feature/regra nova tem teste correspondente** (mapeamento por tipo em CLAUDE.md)
+- [ ] Commits Conventional com type válido (`feat|fix|refactor|test|docs|chore|perf|style|build|ci`)
+- [ ] Mensagens em imperativo minúsculo, ≤72 chars no título
+- [ ] Scope inclui `M<NN>` quando específico do milestone
+- [ ] **Commits granulares** — uma feature por commit (não 1 commit "implementa milestone inteiro")
+- [ ] Nenhum commit "WIP" ou "stuff" no histórico
+- [ ] Nenhum teste antigo deletado ou `.skip`-ado pra passar
+- [ ] Nenhum `eslint-disable` ou `@ts-ignore` adicionado sem comentário
 - [ ] `.gitignore` respeitado (sem `.env.local` commitado)
 
 ## PR

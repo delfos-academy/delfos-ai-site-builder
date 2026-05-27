@@ -44,15 +44,46 @@ git add tests/ ; git commit -m "test(M<NN>): testes do critério de pronto"
 
 > Não TDD ortodoxo. É "garantir que o critério de pronto vira código verificável antes de eu acreditar que terminei".
 
-### 4. Implementar
+### 4. Implementar — em loop "feature → teste verde → commit"
 
-Trabalhar pelas tasks do milestone, em ordem. Após cada bloco lógico (uma feature pequena, um endpoint, um componente):
+Trabalhar pelas tasks do milestone, em ordem. **Para cada feature (20-200 linhas, 1 task ou ≤ 3 sub-tasks coesas):**
 
-```bash
-git commit -m "feat(M<NN>): <descrição>"
+Loop obrigatório (ver [commit-discipline.md](commit-discipline.md)):
+
+```
+a. (se ainda não fez) escreve teste(s) do critério/regra → falham (red)
+b. git commit -m "test(<scope>): cobre <comportamento>"
+c. implementa código mínimo pra passar
+d. pnpm test:unit  → 100% verde (TODOS os testes, não só o novo)
+e. pnpm typecheck  → zero erros
+f. pnpm lint       → zero warnings
+g. (se UI) snapshot conferido
+h. git status → revisa arquivos específicos (sem `git add .` cego)
+i. git add <files>
+j. git commit -m "feat(<scope>): <descrição>"
+k. marca task com [x] no MILESTONES/<NN>-*.md
+l. próxima feature
 ```
 
-**Não junte tudo num commit gigante.** Histórico granular ajuda a reverter se uma parte específica der ruim.
+**Bloqueios duros** (nunca commitar se):
+- Algum teste do projeto está vermelho (mesmo antigo não relacionado — investiga primeiro)
+- Typecheck ou lint com erros
+- Feature nova sem teste correspondente
+- Mensagem não é Conventional Commit
+
+**Quando teste antigo quebra após sua mudança:**
+1. Não comente, não delete, não `.skip`
+2. Se sua mudança está errada → conserta o código
+3. Se a regra mudou intencionalmente → atualiza o teste e **explica no corpo do commit** o que mudou e por quê
+
+**Formato do commit:** `<type>(<scope>): <descrição em imperativo minúsculo>`. Scope com `M<NN>` quando específico do milestone.
+
+Exemplos válidos:
+- `feat(M01-courses): adiciona CRUD de cursos no admin`
+- `feat(auth): adiciona reset de senha com TTL de 30min`
+- `fix(M05-org): corrige contagem de seats incluindo convites pendentes`
+- `test(M04): cobre os 6 tipos de exercício`
+- `refactor(lib/email): extrai client Resend pra módulo dedicado`
 
 **Regras de implementação** (eco do CLAUDE.md):
 - TS strict, `noUncheckedIndexedAccess: true`

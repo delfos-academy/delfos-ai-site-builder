@@ -33,13 +33,17 @@ cp <skill_path>/hooks/settings.json.example .claude/settings.json
 
 ### PreToolUse · Bash
 
-Bloqueios de segurança:
+Bloqueios de segurança e disciplina:
 
 - **`git push --force` / `-f`** em qualquer ramo → bloqueado (use `--force-with-lease` em branch própria se realmente necessário)
 - **`rm -rf /`, `rm -rf .`, `rm -rf *`** → bloqueado
 - **`--no-verify` / `--no-gpg-sign`** em git → bloqueado (se um hook falha, conserte o root cause)
+- **`git commit` com mensagem não-Conventional** → bloqueado (formato `<type>(<scope>): <desc>`, ver `workflow/commit-discipline.md`)
+- **`git commit` quando `pnpm test:unit` está vermelho** → bloqueado (testes antigos também valem — conserte o root cause, não pule)
 
-Estes não devem disparar em uso normal — são guarda-corpos contra prompt injection ou erro de transcrição.
+Os 3 primeiros são guarda-corpos contra prompt injection / erro. Os 2 últimos enforçam a disciplina de commit explicitada em [commit-discipline.md](../workflow/commit-discipline.md).
+
+> Custo: o último hook roda `pnpm test:unit` antes de **todo** `git commit`. Em projetos com suíte rápida (< 10s) é imperceptível. Em projeto grande, considerar trocar por `vitest related --run <changed files>` se sua versão do Vitest suporta.
 
 ### Stop
 

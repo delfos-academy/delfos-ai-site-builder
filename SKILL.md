@@ -9,6 +9,16 @@ Skill para construir sites de produção com IA seguindo o playbook que a Delfos
 
 A skill é **determinística**: cada fase tem entradas, saídas e quality gates explícitos. O Claude não improvisa a ordem — segue o WF.
 
+## Filosofia-guia: o leitor primário é o agente
+
+Todo arquivo desta skill — e todo arquivo que ela gera no projeto-alvo — é escrito para ser lido por um **agente de IA**, não só por humanos. Isso muda o que conta como "limpo":
+
+- **Comprimir semântica:** máximo de significado por token. Frases densas, sem enchimento. Contexto finito é o recurso escasso.
+- **Eliminar ambiguidade:** tornar tudo explícito (tipos, limites, fonte única de cada regra). O agente não deve precisar inferir o que dá pra declarar.
+- **Fonte única por conceito (DRY):** cada regra mora num só arquivo; os outros apontam pra ele. Duplicar é criar duas verdades que divergem.
+- **Estrutura previsível:** nomes únicos e diretórios estáveis — o agente acha sem varrer o repo.
+- **Instruir, não só descrever:** dizer ao agente o que fazer, os limites, e **quando parar e perguntar** (ver abaixo).
+
 ## Quando usar
 
 - Usuário quer construir um site/web app **do zero** (não para refatorar um existente).
@@ -63,6 +73,19 @@ Estes vêm do `CLAUDE.md` da Delfos e ficam embutidos na skill:
   - `security-review` antes de merge em milestone que toca auth/billing/dados sensíveis
   - `marketing-copywriter-1` para qualquer copy
 - **Antes de implementar testes:** ler [prompts/tests-from-requirements.md](prompts/tests-from-requirements.md).
+
+## Quando parar e perguntar ao humano
+
+O WF é determinístico, mas não autônomo cego. Pare e pergunte (com uma sugestão concreta, nunca só a pergunta) quando:
+
+- **Gap no brief:** falta info essencial pra a fase atual (público-alvo, escopo de auth, modelo de cobrança, locale). Não inventar — perguntar na Fase 0 e registrar em `docs/BRIEF.md`.
+- **Decisão de produto, não de execução:** escopo do V0, o que entra vs vai pro `BACKLOG`, trade-off de prazo. A skill decide *como*; o humano decide *o quê*.
+- **Desvio da stack locked:** o pedido implica sair de Next.js/Vercel/Neon/Drizzle/Tailwind/shadcn. Sinalizar o conflito antes de implementar.
+- **Ambiguidade em referência visual:** a referência conflita com os princípios não-negociáveis (ex: pede o "AI default look" vetado no §7). Mostrar o conflito e propor alternativa.
+- **Gate vermelho que exige escolha:** teste/segurança/perf falha e a correção tem mais de um caminho razoável com custo diferente. Apresentar as opções, recomendar uma.
+- **Antes de qualquer merge:** cada milestone fecha com aprovação explícita do user. Sem auto-merge (princípio não-negociável #6).
+
+Quando a resposta é derivável do código, do brief ou de um default sensato da skill, **não perguntar** — agir e dizer o que assumiu.
 
 ## Estrutura final no projeto-alvo
 

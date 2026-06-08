@@ -1,5 +1,7 @@
 # Checklist — Organização de código
 
+> **Derivado de [workflow/code-organization.md](../workflow/code-organization.md)** — essa é a fonte única das regras (o *porquê* e o *como*). Este arquivo é só a forma verificável (a *checagem*) pro `pre-merge-review`. Ao mudar um limite ou regra, editar **primeiro** o workflow; este checklist reflete, não define.
+
 Aplicado em **todo PR** (parte do `pre-merge-review`). Bloqueia merge se algo cair em "hard limit".
 
 ## Tamanhos

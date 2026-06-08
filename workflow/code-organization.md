@@ -9,22 +9,9 @@
 
 ## Raiz do repo: whitelist estrita
 
-A raiz contém **apenas** arquivos que precisam estar lá por convenção. Tudo o resto vai pra `docs/` ou pasta de código apropriada. Regra completa: [repo-layout.md](repo-layout.md). Checklist: [checklists/repo-cleanliness.md](../checklists/repo-cleanliness.md).
+A whitelist da raiz (o que pode/não pode ficar na raiz) tem **fonte única**: [repo-layout.md](repo-layout.md). Não duplicar aqui — manter um só lugar evita que as duas listas divirjam. Checklist de verificação: [checklists/repo-cleanliness.md](../checklists/repo-cleanliness.md).
 
-**Permitido na raiz:**
-- `README.md`, `CLAUDE.md`, `LICENSE`, `CONTRIBUTING.md`, `CHANGELOG.md`
-- `package.json`, lockfile, `tsconfig.*.json`, `.npmrc`, `.nvmrc`
-- `next.config.ts`, `proxy.ts`, `instrumentation*.ts`
-- `eslint.config.mjs`, `.prettierrc`, `postcss.config.*`, `tailwind.config.*`, `components.json`
-- `vercel.json`, `drizzle.config.ts`, `vitest.config.ts`, `playwright.config.ts`
-- `.env.example`, `.gitignore`, `.gitattributes`, `.editorconfig`
-- pastas: `app/`, `components/`, `lib/`, `tests/`, `scripts/`, `public/`, `docs/`, `drizzle/`
-
-**Proibido na raiz** (move pra subpasta):
-- Docs do produto (`BRIEF.md`, `PLAN.md`, etc) → `docs/`
-- Scripts soltos → `scripts/`
-- Dados (`data.json`, `seed.csv`) → `lib/placeholders/` ou `data/`
-- Notas (`NOTES.md`, `TODO.md`) → não commitar, use `docs/BACKLOG.md`
+Regra de bolso: a raiz só tem `README.md`, `CLAUDE.md` e configs lidos por convenção; **todo o resto** vai pra `docs/` ou pasta de código. Os detalhes (e o comando de auditoria) estão em `repo-layout.md`.
 
 ## Limites duros
 

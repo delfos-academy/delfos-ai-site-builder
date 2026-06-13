@@ -60,8 +60,13 @@
           },
           {
             "type": "command",
-            "command": "if echo \"$CLAUDE_TOOL_INPUT_COMMAND\" | grep -qE '^git commit\\b'; then if ! pnpm test:unit --silent 2>&1 | tail -5; then echo \"BLOCKED: pnpm test:unit falhou. Conserte os testes antes de commitar (não pule, não delete, não .skip).\" >&2; exit 2; fi; fi",
-            "description": "Bloqueia git commit se pnpm test:unit não está 100% verde"
+            "command": "if echo \"$CLAUDE_TOOL_INPUT_COMMAND\" | grep -qE '^git commit\\b'; then if ! pnpm exec tsc --noEmit 2>&1 | tail -10; then echo \"BLOCKED: typecheck falhou. Conserte os tipos antes de commitar.\" >&2; exit 2; fi; fi",
+            "description": "Gate RÁPIDO de commit: só typecheck (lint roda por edição; a suíte completa fica no push). Evita rodar a suíte inteira a cada commit/merge."
+          },
+          {
+            "type": "command",
+            "command": "if echo \"$CLAUDE_TOOL_INPUT_COMMAND\" | grep -qE '^git push\\b'; then echo 'Rodando suíte completa antes do push (reporter dot)...'; if ! pnpm exec vitest run --reporter=dot --silent 2>&1 | tail -15; then echo \"BLOCKED: suíte falhou. Conserte o root cause antes do push (não pule, não delete, não .skip).\" >&2; exit 2; fi; fi",
+            "description": "Gate ÚNICO de push: suíte COMPLETA com saída enxuta (dot/silent). É aqui que nada quebrado chega ao origin."
           }
         ]
       }

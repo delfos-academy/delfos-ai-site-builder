@@ -27,7 +27,7 @@ Leia o documento da fase em que o projeto está (verifique `PLAN.md` se existir)
 **Imports:** Zod em toda entrada externa; `import 'server-only'` em módulos com DB/secrets.
 **React/Next:** Server Components por padrão; `'use client'` só com interatividade real.
 **Tamanhos hard:** componente `.tsx` ≤ 250 | action ≤ 400 | lib ≤ 350 | route ≤ 200 linhas.
-**Commits:** Conventional obrigatório + `pnpm test:unit` verde antes de cada commit.
+**Commits:** Conventional obrigatório. A cada commit: `typecheck`+`lint`+testes afetados; **suíte completa só antes do `git push`** (não a cada commit).
 **Testes:** toda feature nova tem teste. Unit co-located; E2E em `tests/e2e/`.
 
 ## Sub-prompts disponíveis

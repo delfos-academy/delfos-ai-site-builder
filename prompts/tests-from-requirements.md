@@ -75,13 +75,14 @@ test.describe('M<NN> — <nome do milestone>', () => {
    - Não-admin em action de admin → erro
    - 6º request em rate limit → 429
 3. **Não testar implementação interna.** Testar comportamento observável (input → output, fluxo → estado final).
-4. **Tests devem falhar inicialmente.** Se passam antes de implementar, ou (a) o teste está mockando demais, ou (b) a feature já existe e o critério de pronto está mal escrito.
-5. **Commit antes de implementar:**
+4. **Estado assíncrono → `waitFor`/`findBy*`, nunca asserção síncrona.** Para estado que depende de `useEffect`/timer/`rAF` (contador animado, barra, fetch que assenta depois), asserte com `await waitFor(...)`/`findByText` (polling até o valor final). Asserir de forma síncrona logo após `findBy*`/`render` é corrida (o `findBy` resolve quando o elemento existe, **antes** do efeito rodar) → **flaky** sob carga. Regra de ouro: **desligue a animação e asserte o destino, não o caminho** (ex.: honrar `prefers-reduced-motion` no componente → render síncrono; o teste mocka `matchMedia`). Cheiro de flaky = `vi.stubGlobal("requestAnimationFrame"/"IntersectionObserver")` + `findBy` + asserção de valor que muda no tempo.
+5. **Tests devem falhar inicialmente.** Se passam antes de implementar, ou (a) o teste está mockando demais, ou (b) a feature já existe e o critério de pronto está mal escrito.
+6. **Commit antes de implementar:**
    ```bash
    git add tests/ lib/**/*.test.ts
    git commit -m "test(M<NN>): testes do critério de pronto"
    ```
-6. **Não pular tests.** Se Vitest ou Playwright não está configurado no projeto, esse é o primeiro item do M00-bootstrap, não um obstáculo desta fase.
+7. **Não pular tests.** Se Vitest ou Playwright não está configurado no projeto, esse é o primeiro item do M00-bootstrap, não um obstáculo desta fase.
 
 ## Anti-padrões
 
@@ -89,4 +90,5 @@ test.describe('M<NN> — <nome do milestone>', () => {
 - ❌ Snapshot tests para tudo (frágeis em UI)
 - ❌ "Vou escrever testes depois"
 - ❌ Test que duplica a implementação (testa o exato código que executa)
-- ❌ Skip teste flake — investigar root cause
+- ❌ Asserção síncrona de estado pós-`useEffect`/timer logo após `findBy*` (corrida → flaky) — use `waitFor`
+- ❌ Skip teste flake — investigar root cause (quase sempre é asserção síncrona de estado assíncrono; ver Regra 4)

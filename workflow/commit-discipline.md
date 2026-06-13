@@ -7,9 +7,11 @@
 1. **Toda feature/regra de negócio nova → tem teste novo.** Sem exceção.
 2. **Todo commit é Conventional Commit semântico.** Sem exceção.
 3. **Commit acontece após cada feature implementada.** Não acumular feature + feature + commit gigante.
-4. **Antes de cada commit: `pnpm test:unit` 100% verde.** Sem exceção. Testes antigos também — não é só os novos.
+4. **Custo: rápido no commit, suíte completa no push.** Por commit roda só o **gate rápido** (`typecheck` + `lint` + testes **afetados**); a **suíte completa roda uma única vez antes do `git push`** (gate único). Antes era comum rodar a suíte inteira em todo commit **e** merge **e** push (3×/branch) — desperdício de tempo e de tokens de log. **Nunca dê push com a suíte vermelha.**
 5. **Antes de commit que toca lógica:** `pnpm typecheck` + `pnpm lint` zero erros.
 6. **Tests-first quando possível:** o teste do critério de pronto é escrito antes da implementação (TDD-leve — ver [prompts/tests-from-requirements.md](../prompts/tests-from-requirements.md)).
+7. **Saída de teste enxuta:** rode a suíte com reporter compacto (`--reporter=dot --silent` no Vitest) nos gates automáticos — menos ruído de log no contexto da IA. Verboso só ao depurar uma falha.
+8. **Agrupe tasks acopladas.** Uma branch por task é o padrão, mas quando 2-3 tasks são o **mesmo** trabalho (mesma refatoração/arquivo), agrupe numa branch só e cite-as no commit — menos rodadas de gate.
 
 ## Definição de "feature"
 
@@ -102,16 +104,19 @@ Sequência obrigatória dentro de uma branch de milestone:
 1. Identifica próxima task no MILESTONES/<NN>-*.md
 2. Escreve teste(s) — devem falhar (red)
 3. git add <test files>
-4. git commit -m "test(<scope>): cobre <comportamento>"
+4. git commit -m "test(<scope>): cobre <comportamento>"   # gate rápido: typecheck+lint+afetados
 5. Implementa código mínimo para passar
-6. pnpm test:unit  → 100% verde (incluindo testes antigos!)
-7. pnpm typecheck  → zero erros
-8. pnpm lint       → zero warnings
+6. pnpm typecheck  → zero erros
+7. pnpm lint       → zero warnings
+8. pnpm exec vitest run <arquivos afetados>  → verde (suíte completa fica para o push)
 9. (se UI) snapshot light+dark+375+1440 conferido
 10. git add <impl files>
-11. git commit -m "feat(<scope>): <descrição>"
+11. git commit -m "feat(<scope>): <descrição>"   # gate rápido
 12. Marca task como [x] no MILESTONES/<NN>-*.md
 13. (loop) próxima task
+--- ao fim da branch (antes do PR) ---
+14. pnpm test:unit --reporter=dot --silent  → suíte COMPLETA 100% verde (gate único)
+15. git push   (o gate de push roda a suíte completa por segurança)
 ```
 
 ### Variações aceitas
@@ -196,13 +201,13 @@ Sequência:
 Em **toda Fase 4** (execute-milestone), antes de propor commit:
 
 1. Confirma que escreveu teste para a mudança (se for nova feature/regra)
-2. Roda `pnpm test:unit` — espera 100% verde
-3. Roda `pnpm typecheck` + `pnpm lint`
-4. Compõe mensagem Conventional Commit com scope correto
-5. Executa `git status` para revisar o que vai ser commitado
-6. Faz `git add <files-específicos>` (sem `git add .` cego)
-7. Faz `git commit` com a mensagem
-8. Atualiza `MILESTONES/<NN>-*.md` marcando a task
+2. Roda `pnpm typecheck` + `pnpm lint` + os **testes afetados** (rápido) — espera verde
+3. Compõe mensagem Conventional Commit com scope correto
+4. Executa `git status` para revisar o que vai ser commitado
+5. Faz `git add <files-específicos>` (sem `git add .` cego)
+6. Faz `git commit` com a mensagem
+7. Atualiza `MILESTONES/<NN>-*.md` marcando a task
+8. **Antes do `git push`** (fim da branch): roda a **suíte completa** (`pnpm test:unit`) 100% verde
 
 **Não pede aprovação do user para cada commit individual** (seria spam) — pede aprovação no PR, que agrega N commits do milestone.
 

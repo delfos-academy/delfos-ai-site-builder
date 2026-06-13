@@ -39,11 +39,12 @@ Bloqueios de segurança e disciplina:
 - **`rm -rf /`, `rm -rf .`, `rm -rf *`** → bloqueado
 - **`--no-verify` / `--no-gpg-sign`** em git → bloqueado (se um hook falha, conserte o root cause)
 - **`git commit` com mensagem não-Conventional** → bloqueado (formato `<type>(<scope>): <desc>`, ver `workflow/commit-discipline.md`)
-- **`git commit` quando `pnpm test:unit` está vermelho** → bloqueado (testes antigos também valem — conserte o root cause, não pule)
+- **`git commit`** → gate **rápido**: roda só `tsc --noEmit` (typecheck). O lint já roda por edição (PostToolUse) e a **suíte completa fica para o push**.
+- **`git push`** → gate **único e completo**: roda a suíte inteira com reporter enxuto (`vitest run --reporter=dot --silent`). Bloqueia se algo falha — é aqui que nada quebrado chega ao origin.
 
-Os 3 primeiros são guarda-corpos contra prompt injection / erro. Os 2 últimos enforçam a disciplina de commit explicitada em [commit-discipline.md](../workflow/commit-discipline.md).
+Os 3 primeiros são guarda-corpos contra prompt injection / erro. Os 3 últimos enforçam a disciplina de commit explicitada em [commit-discipline.md](../workflow/commit-discipline.md).
 
-> Custo: o último hook roda `pnpm test:unit` antes de **todo** `git commit`. Em projetos com suíte rápida (< 10s) é imperceptível. Em projeto grande, considerar trocar por `vitest related --run <changed files>` se sua versão do Vitest suporta.
+> **Custo (otimizado):** rodar a suíte completa em **todo** commit (e em cada merge) era o maior gargalo — tempo + tokens de log. Agora o commit é barato (typecheck) e a suíte roda **uma vez no push**. O reporter `dot --silent` corta o ruído de log. Se a suíte estiver lenta, dá para acrescentar `vitest related --run <changed files>` ao gate de commit; mas evite rodar a suíte inteira por commit.
 
 ### Stop
 

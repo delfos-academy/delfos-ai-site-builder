@@ -95,12 +95,13 @@ Ver [ARCHITECTURE.md](./ARCHITECTURE.md). Resumo:
   - Rate limit → unit do contador + E2E "Nth request → 429"
   - Webhook → integration: signature válida processa, inválida 400, duplicata noop
 - Mocks de vendors em `tests/mocks/` (Resend, Stripe, AI Gateway — nunca chamar API real em CI)
+- **Estado assíncrono → `waitFor`/`findBy*`, nunca asserção síncrona** após `findBy*`/`render` (corrida → flaky). Desligue a animação e asserte o destino (ex.: honrar `prefers-reduced-motion`, mockar `matchMedia`), não o caminho.
 
 ### Commits e testes (disciplina não-negociável)
 - **Conventional Commits obrigatório** — `feat(M<NN>-scope): descrição em imperativo`. Ver lista de types em [CODE_ORGANIZATION.md] e detalhe em workflow/commit-discipline.md da skill.
 - **Toda feature/regra de negócio nova → teste novo.** Sem exceção.
-- **Commit após cada feature implementada**, não acumular. Uma feature = 20-200 linhas, cabe em 1-2 commits coesos.
-- **Antes de cada commit:** `pnpm test:unit` 100% verde (incluindo testes antigos), `pnpm typecheck` zero erros, `pnpm lint` zero warnings. Se algum falha: conserta o root cause, não pula.
+- **Commit após cada feature implementada**, não acumular. Uma feature = 20-200 linhas, cabe em 1-2 commits coesos. Agrupe numa branch só tasks que são o **mesmo** trabalho.
+- **Rápido no commit, suíte no push:** por commit roda só `pnpm typecheck` + `pnpm lint` + testes **afetados**; a **suíte completa roda 1× antes do `git push`** (`pnpm test:unit --reporter=dot --silent`). Nunca dar push com a suíte vermelha; se algo falha, conserta o root cause, não pula. (Evita rodar ~80s de testes em todo commit/merge.)
 - **Teste antigo quebrou?** Não comente, não delete. Verifique se sua mudança está errada ou se a regra mudou intencionalmente — em ambos os casos, conserte e explique no corpo do commit.
 - **Tests-first quando possível:** crítério de pronto vira teste antes da implementação.
 - Branch naming: `feat/M<NN>-<slug>`, `fix/<short>`. Sem push direto em `main` — sempre PR.
@@ -138,10 +139,18 @@ pnpm db:studio        # explorar banco
 
 ## Quando finalizar uma task
 
-1. Rodar `pnpm typecheck` + `pnpm lint` + `pnpm test:unit`
+1. Rodar `pnpm typecheck` + `pnpm lint` + os **testes afetados** (a suíte completa roda no `git push`)
 2. Atualizar `MILESTONES/<NN>-*.md` marcando `- [x]` nas tasks completadas
 3. Commit com mensagem Conventional
-4. Se for fim de milestone, abrir PR e atualizar `PLAN.md` com status
+4. Antes do `git push`: `pnpm test:unit` (suíte completa) 100% verde
+5. Se for fim de milestone, abrir PR e atualizar `PLAN.md` com status
+
+## Higiene de contexto (memória/docs)
+
+- Mantenha os arquivos carregados a cada sessão **enxutos** (este `CLAUDE.md`, qualquer `MEMORY.md`):
+  estado atual + convenções vivas + ~3 entradas recentes. Logs sessão-a-sessão vão para `docs/archive/`
+  (não carregado por padrão); o histórico completo fica no changelog. Arquivo de contexto inchado = custo
+  fixo de tokens em toda interação.
 
 ## Vocabulário do produto ({{PT_PRIMARY_LOCALE}} ↔ EN no código)
 

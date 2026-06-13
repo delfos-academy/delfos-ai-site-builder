@@ -91,7 +91,11 @@ Settings em `.claude/settings.json` — exemplo em [hooks/settings.json.example]
 
 - `PostToolUse` em Edit/Write sobre `.ts/.tsx` → roda `pnpm typecheck` no arquivo
 - `PostToolUse` em Edit/Write → roda `pnpm lint --fix` no arquivo
+- `PreToolUse` em `git commit` → gate **rápido** (só `tsc --noEmit`) — não roda a suíte inteira por commit
+- `PreToolUse` em `git push` → gate **completo** (suíte inteira, `vitest run --reporter=dot --silent`) — é aqui que nada quebrado chega ao origin
 - `Stop` → checa se há mudanças não-commitadas e avisa
+
+> **Custo:** a suíte completa roda **uma vez no push**, não a cada commit/merge (era o maior gargalo de tempo/tokens). O reporter `dot --silent` corta o ruído de log.
 
 ## Branch protection (GitHub — setup manual do user)
 

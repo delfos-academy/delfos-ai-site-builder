@@ -97,6 +97,7 @@ test.describe('M<NN> — <nome>', () => {
 - [ ] Failure modes cobertos quando aplicável
 - [ ] Testes usam as convenções do projeto (helpers, fixtures)
 - [ ] Testes são atômicos — sem dependência de ordem entre testes
+- [ ] Estado assíncrono (efeito/timer/fetch) é assertado com `waitFor`/`findBy*`, nunca síncrono após `findBy*`
 - [ ] Sem `.only` ou `.skip` esquecidos
 - [ ] Testes falham inicialmente (agente pai confirma)
 
@@ -105,4 +106,5 @@ test.describe('M<NN> — <nome>', () => {
 - ❌ Snapshot tests para tudo (frágeis em UI)
 - ❌ Testes que mockam a função sendo testada
 - ❌ Testes que re-implementam a função na asserção
+- ❌ **Asserção síncrona de estado pós-`useEffect`/timer** logo após `findBy*`/`render` (corrida → flaky). Use `await waitFor(...)` (polling até o valor final). Para contador/barra/transição animada: desligue a animação (honrar `prefers-reduced-motion`, mockar `matchMedia`) e asserte o **destino**, não o caminho. Evite `vi.stubGlobal("requestAnimationFrame"/"IntersectionObserver")` + asserção síncrona.
 - ❌ Testes que dependem de APIs reais de Resend/Stripe/AI (usar mocks em `tests/mocks/`)

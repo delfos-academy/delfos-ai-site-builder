@@ -26,7 +26,7 @@ Antes de qualquer implementação, ler:
 - Componente ≤ 250 linhas | action ≤ 400 | lib ≤ 350 | route ≤ 200
 - Conventional Commits obrigatório
 - Toda feature nova tem teste antes de commitar
-- `pnpm typecheck` + `pnpm lint` + `pnpm test:unit` verdes antes de cada commit
+- `pnpm typecheck` + `pnpm lint` + testes **afetados** verdes a cada commit; **suíte completa** (`pnpm test:unit`) só **antes do `git push`** (não a cada commit)
 
 ## Quality gate antes de PR
 

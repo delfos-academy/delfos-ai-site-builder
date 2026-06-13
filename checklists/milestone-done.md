@@ -57,7 +57,7 @@ pnpm build        # sucesso
 ## Git e disciplina de commit (ver [workflow/commit-discipline.md])
 
 - [ ] Branch correto: `feat/M<NN>-<slug>`
-- [ ] **Toda feature commitada teve `pnpm test:unit` verde antes do commit**
+- [ ] **Cada commit passou no gate rápido** (`typecheck`+`lint`+testes afetados) e a **suíte completa (`pnpm test:unit`) ficou 100% verde antes do `git push`**
 - [ ] **Toda feature/regra nova tem teste correspondente** (mapeamento por tipo em CLAUDE.md)
 - [ ] Commits Conventional com type válido (`feat|fix|refactor|test|docs|chore|perf|style|build|ci`)
 - [ ] Mensagens em imperativo minúsculo, ≤72 chars no título

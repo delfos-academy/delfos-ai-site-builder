@@ -32,7 +32,8 @@ Workflow completo em `.skill/workflow/`. Leia o documento da fase ativa antes de
 ### Commits (Conventional obrigatório)
 - Formato: `<type>(<scope>): <descrição em imperativo minúsculo>`
 - Types: `feat | fix | refactor | test | docs | chore | perf | style | build | ci`
-- Antes de cada commit: `pnpm test:unit` 100% verde + `pnpm typecheck` zero erros + `pnpm lint` zero warnings
+- A cada commit (rápido): `pnpm typecheck` zero erros + `pnpm lint` zero warnings + testes **afetados** verdes
+- Antes do `git push` (gate único): `pnpm test:unit` 100% verde — não rodar a suíte inteira a cada commit
 
 ### Testes
 - Toda feature nova tem teste correspondente (sem exceção)
